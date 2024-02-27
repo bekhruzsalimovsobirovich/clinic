@@ -3,22 +3,24 @@
 namespace App\Domain\Patients\Actions;
 
 use App\Domain\Patients\DTO\StorePatientDTO;
+use App\Domain\Patients\DTO\UpdatePatientDTO;
 use App\Domain\Patients\Models\Patient;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
-class StorePatientAction
+class UpdatePatientAction
 {
     /**
-     * @param StorePatientDTO $dto
+     * @param UpdatePatientDTO $dto
      * @return Patient
      * @throws Exception
      */
-    public function execute(StorePatientDTO $dto): Patient
+    public function execute(UpdatePatientDTO $dto): Patient
     {
         DB::beginTransaction();
         try {
-            $patient = new Patient();
+            $patient = $dto->getPatient();
             $patient->user_id = 1;
             $patient->agent_id = $dto->getAgentId();
             $patient->full_name = $dto->getFullName();
@@ -31,6 +33,7 @@ class StorePatientAction
             $patient->description = $dto->getDescription();
 
             if ($dto->getAvatar()) {
+                File::delete(public_path('images/patients/'.$dto->getPatient()->avatar));
                 $file = $dto->getAvatar();
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
@@ -39,7 +42,7 @@ class StorePatientAction
                 $patient->avatar_path = url('images/patients/' . $filename);
             }
 
-            $patient->save();
+            $patient->update();
         } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Agents;
 
 use App\Domain\Agents\Actions\StoreAgentAction;
+use App\Domain\Agents\Actions\UpdateAgentAction;
 use App\Domain\Agents\DTO\StoreAgentDTO;
+use App\Domain\Agents\DTO\UpdateAgentDTO;
+use App\Domain\Agents\Models\Agent;
 use App\Domain\Agents\Repositories\AgentRepository;
 use App\Domain\Agents\Requests\StoreAgentRequest;
 use App\Http\Controllers\Controller;
@@ -97,16 +100,52 @@ class AgentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Agent $agent, UpdateAgentAction $action)
     {
-        //
+        try {
+            $request->validate([
+                'full_name' => 'required',
+                'phone' => 'required'
+            ]);
+        } catch (ValidationException $validate) {
+            return response()->json([
+                'status' => false,
+                'message' => $validate->getMessage()
+            ]);
+        }
+
+        try {
+            $request->merge([
+                'agent' => $agent
+            ]);
+            $dto = UpdateAgentDTO::fromArray($request->all());
+            $response = $action->execute($dto);
+            return response()
+                ->json([
+                    'status' => true,
+                    'message' => 'Agent update successfully.',
+                    'data' => $response
+                ]);
+        } catch (Exception $exception) {
+            return response()
+                ->json([
+                    'status' => false,
+                    'message' => $exception->getMessage()
+                ]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Agent $agent)
     {
-        //
+        $agent->delete();
+
+        return response()
+            ->json([
+                'status' => true,
+                'message' => 'Agentn deleted successfully.'
+            ]);
     }
 }
