@@ -31,6 +31,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('avatar')->nullable();
             $table->string('avatar_path')->nullable();
+            $table->string('code')->unique();
             $table->timestamps();
         });
     }

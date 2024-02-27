@@ -62,6 +62,7 @@ class PatientController extends Controller
         try {
             $request->validate([
                 'user_id' => 'required',
+                'code' => 'required|string',
                 'agent_id' => 'required',
                 'full_name' => 'required',
                 'workplace' => 'nullable|string',
@@ -114,6 +115,7 @@ class PatientController extends Controller
         try {
             $request->validate([
                 'user_id' => 'required',
+                'code' => 'nullable',
                 'agent_id' => 'required',
                 'full_name' => 'required',
                 'workplace' => 'nullable|string',

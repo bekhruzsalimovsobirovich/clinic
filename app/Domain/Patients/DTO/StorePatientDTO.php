@@ -8,6 +8,7 @@ class StorePatientDTO
 {
     private int $user_id;
     private int $agent_id;
+    private string $code;
     private string $full_name;
     private ?string $workplace = null;
     private string $birthday;
@@ -23,6 +24,7 @@ class StorePatientDTO
         $dto = new self();
         $dto->setUserId($data['user_id']);
         $dto->setAgentId($data['agent_id']);
+        $dto->setCode($data['code']);
         $dto->setFullName($data['full_name']);
         $dto->setWorkplace($data['workplace'] ?? null);
         $dto->setBirthday($data['birthday']);
@@ -210,5 +212,21 @@ class StorePatientDTO
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
     }
 }
