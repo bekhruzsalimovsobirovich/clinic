@@ -2,6 +2,7 @@
 
 namespace App\Domain\Patients\Models;
 
+use App\Domain\Agents\Models\Agent;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -9,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
+
+    protected $with = ['agent'];
 
     protected $casts = [
         'province_city' => 'json'
@@ -28,4 +31,9 @@ class Patient extends Model
 //    }
 
     protected $perPage = 20;
+
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
 }

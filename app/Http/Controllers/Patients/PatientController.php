@@ -164,6 +164,8 @@ class PatientController extends Controller
             File::delete(public_path('images/patients/' . $patient->avatar));
         }
 
+        $patient->delete();
+
         return response()
             ->json([
                 'status' => true,
