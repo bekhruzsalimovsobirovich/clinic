@@ -62,12 +62,12 @@ class PatientController extends Controller
                 'full_name' => 'required',
                 'workplace' => 'nullable|string',
                 'birthday' => 'required',
-                'province_city' => 'required|array',
+                'province_city' => 'required',
                 'address' => 'required|string',
                 'job' => 'nullable|string',
                 'phone' => 'nullable|string',
                 'description' => 'nullable|string',
-                'avatar' => 'nullable|string',
+                'avatar' => 'nullable',
             ]);
         } catch (ValidationException $validate) {
             return response()->json([

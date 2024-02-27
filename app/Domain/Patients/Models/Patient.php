@@ -10,10 +10,6 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'full_name','agent_id','workplace','birthday','province_city','address','job','phone','description','avatar'
-    ];
-
     protected $casts = [
         'province_city' => 'json'
     ];
