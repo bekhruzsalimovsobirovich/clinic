@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Agents\AgentController;
+use App\Http\Controllers\Appointments\AppointmentController;
 use App\Http\Controllers\Patients\PatientController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,4 +29,10 @@ Route::group(['prefix' => 'agents'], function (){
 Route::group(['prefix' => 'patients'], function (){
     Route::apiResource('/patients',PatientController::class);
     Route::get('/all',[PatientController::class,'getAll']);
+});
+
+Route::group(['prefix' => 'appointments'], function (){
+    Route::get('/',[AppointmentController::class,'index']);
+    Route::post('/',[AppointmentController::class,'store']);
+    Route::put('/{appointment}',[AppointmentController::class,'update']);
 });
