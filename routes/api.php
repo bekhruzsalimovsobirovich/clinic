@@ -5,7 +5,9 @@ use App\Http\Controllers\Appointments\AppointmentController;
 use App\Http\Controllers\Epidemiologics\EpidemiologicsController;
 use App\Http\Controllers\Illnesses\IllnessController;
 use App\Http\Controllers\Patients\PatientController;
+use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Services\ServicesController;
+use App\Http\Controllers\Users\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -55,3 +57,8 @@ Route::group(['prefix' => 'services'], function (){
     Route::apiResource('services',ServicesController::class);
     Route::get('/service/all',[ServicesController::class,'getAll']);
 });
+Route::apiResource('roles',RoleController::class);
+Route::get('role/all',[RoleController::class,'getAll']);
+
+Route::apiResource('users',UserController::class);
+Route::post('login',[UserController::class,'login']);
