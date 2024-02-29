@@ -26,6 +26,7 @@ class StoreIllnessAction
             DB::rollBack();
             throw $exception;
         }
+        DB::commit();
         return $illness;
     }
 }
