@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\Agents\AgentController;
 use App\Http\Controllers\Appointments\AppointmentController;
+use App\Http\Controllers\Epidemiologics\EpidemiologicsController;
+use App\Http\Controllers\Illnesses\IllnessController;
 use App\Http\Controllers\Patients\PatientController;
+use App\Http\Controllers\Services\ServicesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,4 +38,20 @@ Route::group(['prefix' => 'appointments'], function (){
     Route::get('/',[AppointmentController::class,'index']);
     Route::post('/',[AppointmentController::class,'store']);
     Route::put('/{appointment}',[AppointmentController::class,'update']);
+    Route::delete('/{appointment}',[AppointmentController::class,'destroy']);
+});
+
+Route::group(['prefix' => 'illnesses'], function (){
+    Route::apiResource('illnesses',IllnessController::class);
+    Route::get('/illness/all',[IllnessController::class,'getAll']);
+});
+
+Route::group(['prefix' => 'epidemiologics'], function (){
+    Route::apiResource('epidemiologics',EpidemiologicsController::class);
+    Route::get('/epidemiologic/all',[EpidemiologicsController::class,'getAll']);
+});
+
+Route::group(['prefix' => 'services'], function (){
+    Route::apiResource('services',ServicesController::class);
+    Route::get('/service/all',[ServicesController::class,'getAll']);
 });

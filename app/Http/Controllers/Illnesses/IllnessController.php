@@ -1,58 +1,67 @@
 <?php
 
-namespace App\Http\Controllers\Appointments;
+namespace App\Http\Controllers\Illnesses;
 
-use App\Domain\Appointments\Actions\StoreAppointmentAction;
-use App\Domain\Appointments\Actions\UpdateAppointmentAction;
-use App\Domain\Appointments\DTO\StoreAppointmentDTO;
-use App\Domain\Appointments\DTO\UpdateAppointmentDTO;
-use App\Domain\Appointments\Models\Appointment;
-use App\Domain\Appointments\Repositories\AppointmentRepository;
+use App\Domain\Illnesses\Actions\StoreIllnessAction;
+use App\Domain\Illnesses\Actions\UpdateIllnessAction;
+use App\Domain\Illnesses\DTO\StoreIllnessDTO;
+use App\Domain\Illnesses\DTO\UpdateIllnessDTO;
+use App\Domain\Illnesses\Models\Illness;
+use App\Domain\Illnesses\Repositories\IllnessRepository;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class AppointmentController extends Controller
+class IllnessController extends Controller
 {
     /**
-     * @var mixed|AppointmentRepository
+     * @var mixed|IllnessRepository
      */
-    public mixed $appointments;
+    public mixed $illnesses;
 
     /**
-     * @param AppointmentRepository $appointmentRepository
+     * @param IllnessRepository $illnessRepository
      */
-    public function __construct(AppointmentRepository $appointmentRepository)
+    public function __construct(IllnessRepository $illnessRepository)
     {
-        $this->appointments = $appointmentRepository;
+        $this->illnesses = $illnessRepository;
     }
 
     /**
-     * @return JsonResponse
+     * Display a listing of the resource.
      */
     public function index()
     {
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->appointments->getAll()
+                'data' => $this->illnesses->getPaginate()
             ]);
     }
 
     /**
-     * @param Request $request
-     * @param StoreAppointmentAction $action
      * @return JsonResponse
      */
-    public function store(Request $request,StoreAppointmentAction $action)
+    public function getAll()
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->illnesses->getAll()
+            ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request, StoreIllnessAction $action)
     {
         try {
             $request->validate([
-                'full_name' => 'required',
-                'phone' => 'required',
-                'date' => 'required',
+                'title' => 'required',
+                'code' => 'required'
             ]);
         } catch (ValidationException $validate) {
             return response()->json([
@@ -62,12 +71,12 @@ class AppointmentController extends Controller
         }
 
         try {
-            $dto = StoreAppointmentDTO::fromArray($request->all());
+            $dto = StoreIllnessDTO::fromArray($request->all());
             $response = $action->execute($dto);
             return response()
                 ->json([
                     'status' => true,
-                    'message' => 'Appointment created successfully.',
+                    'message' => 'Illness created successfully.',
                     'data' => $response
                 ]);
         } catch (Exception $exception) {
@@ -80,16 +89,22 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param Appointment $appointment
-     * @param UpdateAppointmentAction $action
-     * @return JsonResponse
+     * Display the specified resource.
      */
-    public function update(Request $request,Appointment $appointment,UpdateAppointmentAction $action)
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Illness $illness, UpdateIllnessAction $action)
     {
         try {
             $request->validate([
-                'date' => 'required',
+                'title' => 'required',
+                'code' => 'required'
             ]);
         } catch (ValidationException $validate) {
             return response()->json([
@@ -100,14 +115,14 @@ class AppointmentController extends Controller
 
         try {
             $request->merge([
-                'appointment' => $appointment
+                'illness' => $illness
             ]);
-            $dto = UpdateAppointmentDTO::fromArray($request->all());
+            $dto = UpdateIllnessDTO::fromArray($request->all());
             $response = $action->execute($dto);
             return response()
                 ->json([
                     'status' => true,
-                    'message' => 'Appointment updated successfully.',
+                    'message' => 'Illness update successfully.',
                     'data' => $response
                 ]);
         } catch (Exception $exception) {
@@ -120,17 +135,16 @@ class AppointmentController extends Controller
     }
 
     /**
-     * @param Appointment $appointment
-     * @return JsonResponse
+     * Remove the specified resource from storage.
      */
-    public function destroy(Appointment $appointment)
+    public function destroy(Illness $illness)
     {
-        $appointment->delete();
+        $illness->delete();
 
         return response()
             ->json([
                 'status' => true,
-                'message' => 'Appointment deleted successfully'
+                'message' => 'Illness deleted successfully.'
             ]);
     }
 }
