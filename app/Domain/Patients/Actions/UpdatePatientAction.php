@@ -21,7 +21,7 @@ class UpdatePatientAction
         DB::beginTransaction();
         try {
             $patient = $dto->getPatient();
-            $patient->user_id = 1;
+            $patient->user_id = $dto->getUserId();
             $patient->agent_id = $dto->getAgentId();
             $patient->full_name = $dto->getFullName();
             $patient->workplace = $dto->getWorkplace();

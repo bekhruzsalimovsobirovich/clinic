@@ -19,7 +19,7 @@ class StorePatientAction
         DB::beginTransaction();
         try {
             $patient = new Patient();
-            $patient->user_id = 1;
+            $patient->user_id = $dto->getUserId();
             $patient->code = $dto->getCode();
             $patient->agent_id = $dto->getAgentId();
             $patient->full_name = $dto->getFullName();
