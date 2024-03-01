@@ -3,6 +3,7 @@
 namespace App\Domain\Patients\Models;
 
 use App\Domain\Agents\Models\Agent;
+use App\Domain\Epidemiologics\Models\Epidemiologic;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +12,7 @@ class Patient extends Model
 {
     use HasFactory;
 
-    protected $with = ['agent'];
+    protected $with = ['agent','epidemiologics'];
 
     protected $casts = [
         'province_city' => 'json'
@@ -35,5 +36,10 @@ class Patient extends Model
     public function agent()
     {
         return $this->belongsTo(Agent::class);
+    }
+
+    public function epidemiologics()
+    {
+        return $this->belongsToMany(Epidemiologic::class,'patient_epidemiologics');
     }
 }

@@ -172,4 +172,17 @@ class PatientController extends Controller
                 'message' => 'Patient deleted successfully'
             ]);
     }
+
+//    patient epidemiologic
+    public function attach(Request $request)
+    {
+        $patient = Patient::find($request->patient_id);
+        $patient->epidemiologics()->attach($request->epidemiologic_id);
+
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $patient
+            ]);
+    }
 }
