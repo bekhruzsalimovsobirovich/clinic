@@ -102,9 +102,13 @@ class PatientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Patient $patient)
     {
-        //
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $patient
+            ]);
     }
 
     /**
