@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 class EpidemiologicRepository
 {
     /**
+     * @param $filter
      * @return LengthAwarePaginator
      */
-    public function getPaginate(): LengthAwarePaginator
+    public function getPaginate($filter): LengthAwarePaginator
     {
         return Epidemiologic::query()
+            ->Filter($filter)
             ->orderByDesc('id')
             ->paginate();
     }

@@ -17,6 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PatientEpidemiologic whereEpidemiologicId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PatientEpidemiologic whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PatientEpidemiologic wherePatientId($value)
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|PatientEpidemiologic whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PatientEpidemiologic whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class PatientEpidemiologic extends Model

@@ -3,6 +3,7 @@
 namespace App\Domain\Epidemiologics\Models;
 
 use App\Domain\Patients\Models\Patient;
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,11 +23,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Epidemiologic whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Epidemiologic whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Epidemiologic whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Epidemiologic filter(\App\Filters\FilterInterface $filter)
  * @mixin \Eloquent
  */
 class Epidemiologic extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     protected $perPage = 20;
 

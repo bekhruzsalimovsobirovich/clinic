@@ -9,7 +9,9 @@ use App\Domain\Epidemiologics\DTO\UpdateEpidemiologicDTO;
 use App\Domain\Epidemiologics\Models\Epidemiologic;
 use App\Domain\Epidemiologics\Repositories\EpidemiologicRepository;
 use App\Domain\Illnesses\Repositories\IllnessRepository;
+use App\Filters\EpidemiologicFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Filters\EpidemiologicFilterRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,12 +35,13 @@ class EpidemiologicsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(EpidemiologicFilterRequest $request)
     {
+        $filter = app()->make(EpidemiologicFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->epidemiologics->getPaginate()
+                'data' => $this->epidemiologics->getPaginate($filter)
             ]);
     }
 

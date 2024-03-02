@@ -38,7 +38,7 @@ class UserController extends Controller
         $doctors = User::query()
             ->where('role_id', '=', 1)
             ->orderByDesc('id')
-            ->paginate();
+            ->get();
         return response()
             ->json([
                 'status' => true,
