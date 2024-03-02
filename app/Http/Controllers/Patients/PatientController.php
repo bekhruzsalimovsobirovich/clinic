@@ -8,7 +8,9 @@ use App\Domain\Patients\DTO\StorePatientDTO;
 use App\Domain\Patients\DTO\UpdatePatientDTO;
 use App\Domain\Patients\Models\Patient;
 use App\Domain\Patients\Repositories\PatientRepository;
+use App\Filters\PatientFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Filters\PatientFilterRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -33,12 +35,13 @@ class PatientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PatientFilterRequest $request)
     {
+        $filter = app()->make(PatientFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->patients->getPaginate()
+                'data' => $this->patients->getPaginate($filter)
             ]);
     }
 
@@ -180,8 +183,9 @@ class PatientController extends Controller
 //    patient epidemiologic
     public function attach(Request $request)
     {
+//        dd($request->all());
         $patient = Patient::find($request->patient_id);
-        $patient->epidemiologics()->attach($request->epidemiologic_id);
+        $patient->epidemiologics()->sync($request->epidemiologic_id);
 
         return response()
             ->json([

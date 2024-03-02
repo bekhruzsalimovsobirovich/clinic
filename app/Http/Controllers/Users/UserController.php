@@ -31,6 +31,22 @@ class UserController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function getDoctorRoleAllUser(): JsonResponse
+    {
+        $doctors = User::query()
+            ->where('role_id', '=', 1)
+            ->orderByDesc('id')
+            ->paginate();
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $doctors
+            ]);
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */

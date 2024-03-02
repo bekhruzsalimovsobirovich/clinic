@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 class PatientRepository
 {
     /**
+     * @param $filter
      * @return LengthAwarePaginator
      */
-    public function getPaginate(): LengthAwarePaginator
+    public function getPaginate($filter): LengthAwarePaginator
     {
         return Patient::query()
+            ->Filter($filter)
             ->orderBy('id','desc')
             ->paginate();
     }

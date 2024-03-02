@@ -63,3 +63,4 @@ Route::get('role/all',[RoleController::class,'getAll']);
 
 Route::apiResource('users',UserController::class);
 Route::post('login',[UserController::class,'login']);
+Route::get('user/doctors',[UserController::class,'getDoctorRoleAllUser']);
