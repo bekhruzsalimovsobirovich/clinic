@@ -11,6 +11,17 @@ class PatientRepository
 {
     /**
      * @param $filter
+     * @return array|Collection
+     */
+    public function searchPatient($filter): array|Collection
+    {
+        return Patient::query()
+            ->Filter($filter)
+            ->orderBy('id','desc')
+            ->get();
+    }
+    /**
+     * @param $filter
      * @return LengthAwarePaginator
      */
     public function getPaginate($filter): LengthAwarePaginator

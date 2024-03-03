@@ -34,6 +34,7 @@ Route::group(['prefix' => 'agents'], function (){
 Route::group(['prefix' => 'patients'], function (){
     Route::apiResource('/patients',PatientController::class);
     Route::get('/all',[PatientController::class,'getAll']);
+    Route::get('/search/name',[PatientController::class,'searchPatient']);
     Route::post('/attach',[PatientController::class,'attach']);
 });
 

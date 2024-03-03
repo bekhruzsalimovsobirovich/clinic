@@ -12,6 +12,7 @@ use App\Filters\PatientFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Filters\PatientFilterRequest;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -25,23 +26,43 @@ class PatientController extends Controller
     public mixed $patients;
 
     /**
-     * @param PatientRepository $patientRepository
+     * @var mixed
      */
-    public function __construct(PatientRepository $patientRepository)
+    public mixed $filters;
+
+    /**
+     * @param PatientRepository $patientRepository
+     * @param PatientFilterRequest $request
+     * @throws BindingResolutionException
+     */
+    public function __construct(PatientRepository $patientRepository, PatientFilterRequest $request)
     {
         $this->patients = $patientRepository;
+        $this->filters = app()->make(PatientFilter::class, ['queryParams' => array_filter($request->validated())]);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function searchPatient(): JsonResponse
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->patients->searchPatient($this->filters)
+            ]);
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(PatientFilterRequest $request)
+    public function index()
     {
-        $filter = app()->make(PatientFilter::class, ['queryParams' => array_filter($request->validated())]);
+//        $filter = app()->make(PatientFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->patients->getPaginate($filter)
+                'data' => $this->patients->getPaginate($this->filters)
             ]);
     }
 
