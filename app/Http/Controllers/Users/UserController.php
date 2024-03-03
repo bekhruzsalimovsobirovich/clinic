@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Filters\UserFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Filters\UserFilterRequest;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -17,9 +19,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(UserFilterRequest $request)
     {
+        $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($request->validated())]);
         $users = User::query()
+            ->Filter($filter)
             ->orderByDesc('id')
             ->paginate();
 
