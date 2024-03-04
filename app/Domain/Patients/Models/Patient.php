@@ -5,12 +5,13 @@ namespace App\Domain\Patients\Models;
 use App\Domain\Agents\Models\Agent;
 use App\Domain\Epidemiologics\Models\Epidemiologic;
 use App\Models\Traits\Filterable;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -86,5 +87,10 @@ class Patient extends Model
     public function epidemiologics()
     {
         return $this->belongsToMany(Epidemiologic::class,'patient_epidemiologics');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class,'user_patients');
     }
 }

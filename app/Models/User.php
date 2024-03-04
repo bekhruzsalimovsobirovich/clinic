@@ -3,10 +3,14 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Domain\Patients\Models\Patient;
 use App\Domain\Roles\Models\Role;
+use App\Filters\FilterInterface;
 use App\Models\Traits\Filterable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -78,5 +82,13 @@ class User extends Authenticatable
     public function role(): HasOne
     {
         return $this->hasOne(Role::class,'id','role_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function patients(): BelongsToMany
+    {
+        return $this->belongsToMany(Patient::class,'user_patients');
     }
 }
