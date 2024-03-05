@@ -69,3 +69,4 @@ Route::get('user/doctors',[UserController::class,'getDoctorRoleAllUser']);
 Route::get('payments',[PaymentController::class,'index']);
 Route::get('payment/all',[PaymentController::class,'getAll']);
 Route::post('payments',[PaymentController::class,'store']);
+Route::post('payment/{user_id}',[PaymentController::class,'getUserIDForPayment']);

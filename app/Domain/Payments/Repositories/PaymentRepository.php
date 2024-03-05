@@ -28,4 +28,15 @@ class PaymentRepository
             ->orderByDesc('id')
             ->get();
     }
+
+    /**
+     * @return Builder[]|Collection
+     */
+    public function getUserIDForPayment($user_id): Collection|array
+    {
+        return Payment::query()
+            ->where('user_id','=',$user_id)
+            ->orderByDesc('id')
+            ->get();
+    }
 }

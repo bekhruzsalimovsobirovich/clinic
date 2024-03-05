@@ -50,6 +50,18 @@ class PaymentController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function getUserIDForPayment($user_id)
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->payments->getUserIDForPayment($user_id)
+            ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, StorePaymentAction $action)
