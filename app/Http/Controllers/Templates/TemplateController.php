@@ -1,78 +1,62 @@
 <?php
 
-namespace App\Http\Controllers\Payments;
+namespace App\Http\Controllers\Templates;
 
-use App\Domain\Payments\Actions\StorePaymentAction;
-use App\Domain\Payments\DTO\StorePaymentDTO;
-use App\Domain\Payments\Repositories\PaymentRepository;
-use App\Filters\PaymentFilter;
+use App\Domain\Templates\Actions\StoreTemplateAction;
+use App\Domain\Templates\DTO\StoreTemplateDTO;
+use App\Domain\Templates\Models\Template;
+use App\Domain\Templates\Repositories\TemplateRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Filters\PaymentFilterRequest;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class PaymentController extends Controller
+class TemplateController extends Controller
 {
     /**
-     * @var mixed|PaymentRepository
+     * @var mixed|TemplateRepository
      */
-    public mixed $payments;
+    public mixed $templates;
 
     /**
-     * @param PaymentRepository $paymentRepository
+     * @param TemplateRepository $templateRepository
      */
-    public function __construct(PaymentRepository $paymentRepository)
+    public function __construct(TemplateRepository $templateRepository)
     {
-        $this->payments = $paymentRepository;
+        $this->templates = $templateRepository;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(PaymentFilterRequest $request)
+    public function index()
     {
-        $filter = app()->make(PaymentFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->payments->paginate($filter)
+                'data' => $this->templates->getAll()
             ]);
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function getAll()
+    public function showUserTemplate($user_id)
     {
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->payments->getAll()
-            ]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function getUserIDForPayment($user_id)
-    {
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->payments->getUserIDForPayment($user_id)
+                'data' => $this->templates->showUserTemplate($user_id)
             ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, StorePaymentAction $action)
+    public function store(Request $request, StoreTemplateAction $action)
     {
         try {
             $request->validate([
                 'user_id' => 'required',
-                'patient_id' => 'required'
+                'patient_id' => 'required',
+                'body' => 'required'
             ]);
         } catch (ValidationException $validate) {
             return response()->json([
@@ -82,12 +66,12 @@ class PaymentController extends Controller
         }
 
         try {
-            $dto = StorePaymentDTO::fromArray($request->all());
+            $dto = StoreTemplateDTO::fromArray($request->all());
             $response = $action->execute($dto);
             return response()
                 ->json([
                     'status' => true,
-                    'message' => 'Payment created successfully.',
+                    'message' => 'Template created successfully.',
                     'data' => $response
                 ]);
         } catch (Exception $exception) {
@@ -102,9 +86,9 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Template $template)
     {
-        //
+
     }
 
     /**

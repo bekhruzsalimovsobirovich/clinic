@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $user_id
@@ -52,6 +52,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient whereWorkplace($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Patient filter(\App\Filters\FilterInterface $filter)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, User> $users
+ * @property-read int|null $users_count
  * @mixin \Eloquent
  */
 class Patient extends Model

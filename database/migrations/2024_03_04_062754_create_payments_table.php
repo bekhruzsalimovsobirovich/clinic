@@ -31,6 +31,7 @@ return new class extends Migration
             $table->unsignedDouble('difference_price')->nullable();
             $table->unsignedDouble('pay_patient')->nullable();
             $table->unsignedDouble('return_patient_pay')->nullable();
+            $table->boolean('status')->default(0)->comment('to\'langan bo\'lsa 1, to\'lanmagan bo\'lsa 0');
             $table->timestamps();
         });
     }

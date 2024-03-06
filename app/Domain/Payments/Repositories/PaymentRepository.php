@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 class PaymentRepository
 {
     /**
+     * @param $filter
      * @return LengthAwarePaginator
      */
-    public function paginate(): LengthAwarePaginator
+    public function paginate($filter): LengthAwarePaginator
     {
         return Payment::query()
+            ->Filter($filter)
             ->orderByDesc('id')
             ->paginate();
     }
@@ -30,13 +32,14 @@ class PaymentRepository
     }
 
     /**
-     * @return Builder[]|Collection
+     * @param $user_id
+     * @return LengthAwarePaginator
      */
-    public function getUserIDForPayment($user_id): Collection|array
+    public function getUserIDForPayment($user_id): LengthAwarePaginator
     {
         return Payment::query()
             ->where('user_id','=',$user_id)
             ->orderByDesc('id')
-            ->get();
+            ->paginate();
     }
 }

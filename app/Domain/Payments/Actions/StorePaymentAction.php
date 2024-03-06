@@ -67,6 +67,7 @@ class StorePaymentAction
         $payment->difference_price = $dto->getDifferencePrice();
         $payment->pay_patient = $dto->getPayPatient();
         $payment->return_patient_pay = $dto->getReturnPatientPay();
+        $payment->status = $dto->getStatus();
 
         $payment_history->user_id = $dto->getUserId();
         $payment_history->patient_id = $dto->getPatientId();
@@ -75,5 +76,6 @@ class StorePaymentAction
         $payment_history->difference_price = $dto->getDifferencePrice();
         $payment_history->pay_patient = $dto->getPayPatient();
         $payment_history->return_patient_pay = $dto->getReturnPatientPay();
+        $payment_history->status = $dto->getStatus();
     }
 }

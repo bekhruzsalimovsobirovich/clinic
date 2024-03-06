@@ -40,6 +40,11 @@ class StorePaymentDTO
     private ?float $return_patient_pay = null;
 
     /**
+     * @var bool|null
+     */
+    private ?bool $status = null;
+
+    /**
      * @param array $data
      * @return StorePaymentDTO
      */
@@ -53,6 +58,7 @@ class StorePaymentDTO
         $dto->setDifferencePrice($data['difference_price'] ?? null);
         $dto->setPayPatient($data['pay_patient'] ?? null);
         $dto->setReturnPatientPay($data['return_patient_pay'] ?? null);
+        $dto->setStatus($data['status'] ?? 0);
         return $dto;
     }
 
@@ -166,5 +172,21 @@ class StorePaymentDTO
     public function setReturnPatientPay(?float $return_patient_pay): void
     {
         $this->return_patient_pay = $return_patient_pay;
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param bool|null $status
+     */
+    public function setStatus(?bool $status): void
+    {
+        $this->status = $status;
     }
 }
