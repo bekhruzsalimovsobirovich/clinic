@@ -22,6 +22,7 @@ class UpdateServiceAction
             $service = $dto->getService();
             $service->title = $dto->getTitle();
             $service->price = $dto->getPrice();
+            $service->checked = $dto->getChecked();
             $service->update();
         } catch (Exception $exception) {
             DB::rollBack();

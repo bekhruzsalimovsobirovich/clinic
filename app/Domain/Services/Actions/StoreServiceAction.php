@@ -21,6 +21,7 @@ class StoreServiceAction
             $service = new Service();
             $service->title = $dto->getTitle();
             $service->price = $dto->getPrice();
+            $service->checked = $dto->getChecked();
             $service->save();
         } catch (Exception $exception) {
             DB::rollBack();

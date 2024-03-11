@@ -15,9 +15,9 @@ class StorePaymentDTO
     private int $patient_id;
 
     /**
-     * @var int|null
+     * @var array|null
      */
-    private ?int $service_id = null;
+    private ?array $service_id = null;
 
     /**
      * @var float|null
@@ -95,17 +95,17 @@ class StorePaymentDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getServiceId(): ?int
+    public function getServiceId(): ?array
     {
         return $this->service_id;
     }
 
     /**
-     * @param int|null $service_id
+     * @param array|null $service_id
      */
-    public function setServiceId(?int $service_id): void
+    public function setServiceId(?array $service_id): void
     {
         $this->service_id = $service_id;
     }

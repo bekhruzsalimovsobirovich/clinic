@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->unsignedDouble('price');
+            $table->boolean('checked')->default(0);
             $table->timestamps();
         });
     }

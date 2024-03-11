@@ -17,6 +17,11 @@ class UpdateServiceDTO
     private float $price;
 
     /**
+     * @var int
+     */
+    private int $checked;
+
+    /**
      * @var Service
      */
     private Service $service;
@@ -31,6 +36,7 @@ class UpdateServiceDTO
         $dto->setTitle($data['title']);
         $dto->setPrice($data['price']);
         $dto->setService($data['service']);
+        $dto->setChecked($data['checked']);
 
         return $dto;
     }
@@ -81,5 +87,21 @@ class UpdateServiceDTO
     public function setService(Service $service): void
     {
         $this->service = $service;
+    }
+
+    /**
+     * @return int
+     */
+    public function getChecked(): int
+    {
+        return $this->checked;
+    }
+
+    /**
+     * @param int $checked
+     */
+    public function setChecked(int $checked): void
+    {
+        $this->checked = $checked;
     }
 }
