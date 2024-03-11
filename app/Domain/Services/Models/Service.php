@@ -2,6 +2,7 @@
 
 namespace App\Domain\Services\Models;
 
+use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,11 +22,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Service wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereUpdatedAt($value)
+ * @property int $checked
+ * @method static \Illuminate\Database\Eloquent\Builder|Service filter(\App\Filters\FilterInterface $filter)
+ * @method static \Illuminate\Database\Eloquent\Builder|Service whereChecked($value)
  * @mixin \Eloquent
  */
 class Service extends Model
 {
-    use HasFactory;
+    use HasFactory, Filterable;
 
     protected $perPage = 20;
 }

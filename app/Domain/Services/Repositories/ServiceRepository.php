@@ -22,9 +22,10 @@ class ServiceRepository
     /**
      * @return Builder[]|Collection
      */
-    public function getAll(): Collection|array
+    public function getAll($filter): Collection|array
     {
         return Service::query()
+            ->Filter($filter)
             ->orderBy('id', 'desc')
             ->get();
     }

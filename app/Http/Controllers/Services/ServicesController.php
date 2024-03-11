@@ -8,8 +8,11 @@ use App\Domain\Services\DTO\StoreServiceDTO;
 use App\Domain\Services\DTO\UpdateServiceDTO;
 use App\Domain\Services\Models\Service;
 use App\Domain\Services\Repositories\ServiceRepository;
+use App\Filters\ServiceFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Filters\ServiceFilterRequest;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -43,13 +46,15 @@ class ServicesController extends Controller
 
     /**
      * @return JsonResponse
+     * @throws BindingResolutionException
      */
-    public function getAll()
+    public function getAll(ServiceFilterRequest $request)
     {
+        $filter = app()->make(ServiceFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->services->getAll()
+                'data' => $this->services->getAll($filter)
             ]);
     }
 
