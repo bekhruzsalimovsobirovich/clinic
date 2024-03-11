@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Registries;
 use App\Domain\Registries\Actions\StoreRegistryAction;
 use App\Domain\Registries\DTO\StoreRegistryDTO;
 use App\Domain\Registries\Repositories\RegistryRepository;
+use App\Filters\PatientFilter;
+use App\Filters\RegistryFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Filters\PatientFilterRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,12 +32,13 @@ class RegistryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(PatientFilterRequest $request)
     {
+        $filter = app()->make(RegistryFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->registries->paginate()
+                'data' => $this->registries->paginate($filter)
             ]);
     }
 

@@ -31,6 +31,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereServicePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereUserId($value)
+ * @property int $status to'langan bo'lsa 1, to'lanmagan bo'lsa 0
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereStatus($value)
  * @mixin \Eloquent
  */
 class PaymentHistory extends Model

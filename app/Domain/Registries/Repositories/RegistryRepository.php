@@ -10,11 +10,13 @@ use Illuminate\Database\Eloquent\Collection;
 class RegistryRepository
 {
     /**
+     * @param $filter
      * @return LengthAwarePaginator
      */
-    public function paginate(): LengthAwarePaginator
+    public function paginate($filter): LengthAwarePaginator
     {
         return Registry::query()
+            ->Filter($filter)
             ->orderByDesc('id')
             ->paginate();
     }

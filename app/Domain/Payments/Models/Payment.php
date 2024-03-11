@@ -40,6 +40,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereServicePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserId($value)
+ * @property int $status to'langan bo'lsa 1, to'lanmagan bo'lsa 0
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereStatus($value)
  * @mixin \Eloquent
  */
 class Payment extends Model
