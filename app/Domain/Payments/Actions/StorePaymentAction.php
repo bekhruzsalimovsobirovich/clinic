@@ -48,6 +48,8 @@ class StorePaymentAction
                     $payment->pay_patient = $dto->getPayPatient();
                     $payment->return_patient_pay = $dto->getReturnPatientPay();
                     $payment->status = $dto->getStatus();
+                    $payment->return_status = $dto->getReturnStatus();
+                    $payment->data = $dto->getData();
                     $payment->save();
 
                     $payment_history->user_id = $dto->getUserId();
@@ -58,6 +60,8 @@ class StorePaymentAction
                     $payment_history->pay_patient = $dto->getPayPatient();
                     $payment_history->return_patient_pay = $dto->getReturnPatientPay();
                     $payment_history->status = $dto->getStatus();
+                    $payment_history->return_status = $dto->getReturnStatus();
+                    $payment_history->data = $dto->getData();
                     $payment_history->save();
 
                     DB::commit();
@@ -71,6 +75,8 @@ class StorePaymentAction
                     $current_payment->pay_patient = $dto->getPayPatient();
                     $current_payment->return_patient_pay = $dto->getReturnPatientPay();
                     $current_payment->status = $dto->getStatus();
+                    $current_payment->return_status = $dto->getReturnStatus();
+                    $current_payment->data = $dto->getData();
                     $current_payment->update();
 
                     $current_payment_history->user_id = $dto->getUserId();
@@ -81,6 +87,8 @@ class StorePaymentAction
                     $current_payment_history->pay_patient = $dto->getPayPatient();
                     $current_payment_history->return_patient_pay = $dto->getReturnPatientPay();
                     $current_payment_history->status = $dto->getStatus();
+                    $current_payment_history->return_status = $dto->getReturnStatus();
+                    $current_payment_history->data = $dto->getData();
                     $current_payment_history->update();
 
                     DB::commit();

@@ -25,6 +25,7 @@ class PaymentFilterRequest extends FormRequest
             'full_name' => 'nullable|string',
             'birthday' => 'nullable|date',
             'code' => 'nullable|string',
+            'return_status' => 'nullable|integer',
         ];
     }
 }

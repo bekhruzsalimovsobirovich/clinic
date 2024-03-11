@@ -40,9 +40,19 @@ class StorePaymentDTO
     private ?float $return_patient_pay = null;
 
     /**
-     * @var bool|null
+     * @var int|null
      */
-    private ?bool $status = null;
+    private ?int $status = null;
+
+    /**
+     * @var int|null
+     */
+    private ?int $return_status = null;
+
+    /**
+     * @var array|null
+     */
+    private ?array $data = null;
 
     /**
      * @param array $data
@@ -59,6 +69,8 @@ class StorePaymentDTO
         $dto->setPayPatient($data['pay_patient'] ?? null);
         $dto->setReturnPatientPay($data['return_patient_pay'] ?? null);
         $dto->setStatus($data['status'] ?? 0);
+        $dto->setReturnStatus($data['return_status'] ?? 0);
+        $dto->setData($data['data'] ?? null);
         return $dto;
     }
 
@@ -175,18 +187,50 @@ class StorePaymentDTO
     }
 
     /**
-     * @return bool|null
+     * @return int|null
      */
-    public function getStatus(): ?bool
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
     /**
-     * @param bool|null $status
+     * @param int|null $status
      */
-    public function setStatus(?bool $status): void
+    public function setStatus(?int $status): void
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getReturnStatus(): ?int
+    {
+        return $this->return_status;
+    }
+
+    /**
+     * @param int|null $return_status
+     */
+    public function setReturnStatus(?int $return_status): void
+    {
+        $this->return_status = $return_status;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array|null $data
+     */
+    public function setData(?array $data): void
+    {
+        $this->data = $data;
     }
 }
