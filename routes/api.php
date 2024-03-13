@@ -77,3 +77,4 @@ Route::apiResource('templates',TemplateController::class);
 Route::get('template/user/{user_id}',[TemplateController::class,'showUserTemplate']);
 Route::apiResource('user_patients',UserPatientController::class);
 Route::get('user_patient/all',[UserPatientController::class,'getAll']);
+Route::get('user_patient/{user_id}/patients',[UserPatientController::class,'getUserIDForPatient']);

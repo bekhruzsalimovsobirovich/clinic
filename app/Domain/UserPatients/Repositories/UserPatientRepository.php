@@ -28,4 +28,16 @@ class UserPatientRepository
             ->orderByDesc('id')
             ->get();
     }
+
+    /**
+     * @param $user_id
+     * @return Builder[]|Collection
+     */
+    public function getUserIDForPatient($user_id): Collection|array
+    {
+        return UserPatient::query()
+            ->where('user_id','=',$user_id)
+            ->orderByDesc('id')
+            ->get();
+    }
 }

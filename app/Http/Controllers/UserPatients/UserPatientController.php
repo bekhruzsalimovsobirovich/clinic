@@ -51,6 +51,19 @@ class UserPatientController extends Controller
     }
 
     /**
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function getUserIDForPatient($user_id): JsonResponse
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data'=>$this->user_patients->getUserIDForPatient($user_id)
+            ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, StoreUserPatientAction $action)
