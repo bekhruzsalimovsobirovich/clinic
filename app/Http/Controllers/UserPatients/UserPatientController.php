@@ -1,44 +1,40 @@
 <?php
 
-namespace App\Http\Controllers\Registries;
+namespace App\Http\Controllers\UserPatients;
 
-use App\Domain\Registries\Actions\StoreRegistryAction;
-use App\Domain\Registries\DTO\StoreRegistryDTO;
-use App\Domain\Registries\Repositories\RegistryRepository;
-use App\Filters\PatientFilter;
-use App\Filters\RegistryFilter;
+use App\Domain\UserPatients\Actions\StoreUserPatientAction;
+use App\Domain\UserPatients\DTO\StoreUserPatientDTO;
+use App\Domain\UserPatients\Repositories\UserPatientRepository;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Filters\PatientFilterRequest;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
-class RegistryController extends Controller
+class UserPatientController extends Controller
 {
     /**
-     * @var mixed|RegistryRepository
+     * @var mixed|UserPatientRepository
      */
-    public mixed $registries;
+    public mixed $user_patients;
 
     /**
-     * @param RegistryRepository $registryRepository
+     * @param UserPatientRepository $userPatientRepository
      */
-    public function __construct(RegistryRepository $registryRepository)
+    public function __construct(UserPatientRepository $userPatientRepository)
     {
-        $this->registries = $registryRepository;
+        $this->user_patients = $userPatientRepository;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index(PatientFilterRequest $request)
+    public function index()
     {
-        $filter = app()->make(RegistryFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->registries->paginate($filter)
+                'data'=>$this->user_patients->paginate()
             ]);
     }
 
@@ -50,19 +46,19 @@ class RegistryController extends Controller
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->registries->getAll()
+                'data'=>$this->user_patients->getAll()
             ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, StoreRegistryAction $action)
+    public function store(Request $request, StoreUserPatientAction $action)
     {
         try {
             $request->validate([
+                'user_id' => 'required',
                 'patient_id' => 'required',
-                'data' => 'required|array',
             ]);
         } catch (ValidationException $validate) {
             return response()->json([
@@ -72,12 +68,12 @@ class RegistryController extends Controller
         }
 
         try {
-            $dto = StoreRegistryDTO::fromArray($request->all());
+            $dto = StoreUserPatientDTO::fromArray($request->all());
             $response = $action->execute($dto);
             return response()
                 ->json([
                     'status' => true,
-                    'message' => 'Registry created successfully.',
+                    'message' => 'User patient created successfully.',
                     'data' => $response
                 ]);
         } catch (Exception $exception) {

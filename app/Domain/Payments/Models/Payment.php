@@ -4,6 +4,7 @@ namespace App\Domain\Payments\Models;
 
 use App\Domain\Patients\Models\Patient;
 use App\Domain\Services\Models\Service;
+use App\Domain\UserPatients\Models\UserPatient;
 use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -50,14 +51,15 @@ class Payment extends Model
 
     protected $perPage = 30;
 
-    protected $with = ['user', 'patient', 'service'];
+    protected $with = ['service', 'patient','user_patients'];
 
-    /**
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
+    protected $casts = [
+        'pays' => 'json'
+    ];
+
+    public function user_patients()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(UserPatient::class,'patient_id','patient_id');
     }
 
     /**

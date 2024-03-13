@@ -1,6 +1,7 @@
 <?php
 
 use App\Domain\Patients\Models\Patient;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +13,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registries', function (Blueprint $table) {
+        Schema::create('user_patients', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Patient::class)
+            $table->foreignIdFor(User::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->json('data');
+            $table->foreignIdFor(Patient::class)
+                ->index()
+                ->nullable()
+                ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('registries');
+        Schema::dropIfExists('user_patients');
     }
 };

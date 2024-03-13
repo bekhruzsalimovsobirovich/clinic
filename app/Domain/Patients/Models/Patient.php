@@ -4,6 +4,7 @@ namespace App\Domain\Patients\Models;
 
 use App\Domain\Agents\Models\Agent;
 use App\Domain\Epidemiologics\Models\Epidemiologic;
+use App\Domain\UserPatients\Models\UserPatient;
 use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -65,19 +66,6 @@ class Patient extends Model
     protected $casts = [
         'province_city' => 'json'
     ];
-
-//    /**
-//     * Get the user's first name.
-//     *
-//     * @return Attribute
-//     */
-//    protected function province_city(): Attribute
-//    {
-//        return Attribute::make(
-//            get: fn ($value) => json_decode($value, true),
-//            set: fn ($value) => json_encode($value),
-//        );
-//    }
 
     protected $perPage = 20;
 

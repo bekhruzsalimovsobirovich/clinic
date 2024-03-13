@@ -16,9 +16,6 @@ return new class extends Migration
     {
         Schema::create('payment_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)
-                ->index()
-                ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignIdFor(Patient::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
@@ -26,13 +23,9 @@ return new class extends Migration
                 ->index()
                 ->nullable()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedDouble('service_price')->nullable();
-            $table->unsignedDouble('difference_price')->nullable();
-            $table->unsignedDouble('pay_patient')->nullable();
-            $table->unsignedDouble('return_patient_pay')->nullable();
             $table->tinyInteger('status')->default(0)->comment('to\'langan bo\'lsa 1, to\'lanmagan bo\'lsa 0');
-            $table->tinyInteger('return_status')->default(0)->comment('qayta navbat holati 1');
-            $table->json('data')->nullable()->comment('qayta navbat datasi');
+            $table->tinyInteger('return_status')->default(0)->comment('qayta navbat holati 1, 0 bo\'lsa birinchi marta kelgan');
+            $table->json('pays')->nullable()->comment('to\'lovlar');
             $table->timestamps();
         });
     }
