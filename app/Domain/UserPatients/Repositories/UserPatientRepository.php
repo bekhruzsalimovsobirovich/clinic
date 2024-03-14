@@ -31,13 +31,13 @@ class UserPatientRepository
 
     /**
      * @param $user_id
-     * @return Builder[]|Collection
+     * @return LengthAwarePaginator
      */
-    public function getUserIDForPatient($user_id): Collection|array
+    public function getUserIDForPatient($user_id): LengthAwarePaginator
     {
         return UserPatient::query()
             ->where('user_id','=',$user_id)
             ->orderByDesc('id')
-            ->get();
+            ->paginate();
     }
 }
