@@ -3,6 +3,7 @@
 namespace App\Domain\UserPatients\Models;
 
 use App\Domain\Patients\Models\Patient;
+use App\Domain\Payments\Models\Payment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ class UserPatient extends Model
 
     protected $perPage = 30;
 
-    protected $with = ['user','patient'];
+//    protected $with = ['user','patient','payment'];
 
     /**
      * @return BelongsTo
@@ -31,5 +32,10 @@ class UserPatient extends Model
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function payment()
+    {
+        return $this->hasMany(Payment::class,'patient_id','patient_id');
     }
 }

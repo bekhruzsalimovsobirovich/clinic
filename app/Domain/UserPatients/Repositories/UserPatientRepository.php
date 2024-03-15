@@ -15,6 +15,9 @@ class UserPatientRepository
     public function paginate(): LengthAwarePaginator
     {
         return UserPatient::query()
+            ->with(['user','patient','payment'=>function($query){
+                $query->without(['user','user_patient','service']);
+            }])
             ->orderByDesc('id')
             ->paginate();
     }
@@ -25,6 +28,9 @@ class UserPatientRepository
     public function getAll(): array|Collection
     {
         return UserPatient::query()
+            ->with(['user','patient','payment'=>function($query){
+                $query->without(['user','user_patient','service']);
+            }])
             ->orderByDesc('id')
             ->get();
     }
@@ -36,6 +42,9 @@ class UserPatientRepository
     public function getUserIDForPatient($user_id): LengthAwarePaginator
     {
         return UserPatient::query()
+            ->with(['user','patient','payment'=>function($query){
+                $query->without(['user','user_patient','service']);
+            }])
             ->where('user_id','=',$user_id)
             ->orderByDesc('id')
             ->paginate();
