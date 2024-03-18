@@ -25,9 +25,24 @@ class StorePaymentDTO
     private ?int $return_status = null;
 
     /**
-     * @var array|null
+     * @var float|null
      */
-    private ?array $pays = null;
+    private ?float $pay_patient = null;
+
+    /**
+     * @var float|null
+     */
+    private ?float $return_pay_patient = null;
+
+    /**
+     * @var float|null
+     */
+    private ?float $service_price = null;
+
+    /**
+     * @var float|null
+     */
+    private ?float $difference_price = null;
 
     /**
      * @param array $data
@@ -40,7 +55,10 @@ class StorePaymentDTO
         $dto->setServiceId($data['service_id']);
         $dto->setStatus($data['status'] ?? 0);
         $dto->setReturnStatus($data['return_status'] ?? 0);
-        $dto->setPays($data['pays'] ?? null);
+        $dto->setPayPatient($data['pay_patient'] ?? 0);
+        $dto->setReturnPayPatient($data['return_pay_patient'] ?? 0);
+        $dto->setServicePrice($data['service_price'] ?? 0);
+        $dto->setDifferencePrice($data['difference_price'] ?? 0);
         return $dto;
     }
 
@@ -61,17 +79,17 @@ class StorePaymentDTO
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getServiceId(): ?array
+    public function getServiceId(): array
     {
         return $this->service_id;
     }
 
     /**
-     * @param array|null $service_id
+     * @param array $service_id
      */
-    public function setServiceId(?array $service_id): void
+    public function setServiceId(array $service_id): void
     {
         $this->service_id = $service_id;
     }
@@ -109,18 +127,66 @@ class StorePaymentDTO
     }
 
     /**
-     * @return array|null
+     * @return float|null
      */
-    public function getPays(): ?array
+    public function getPayPatient(): ?float
     {
-        return $this->pays;
+        return $this->pay_patient;
     }
 
     /**
-     * @param array|null $pays
+     * @param float|null $pay_patient
      */
-    public function setPays(?array $pays): void
+    public function setPayPatient(?float $pay_patient): void
     {
-        $this->pays = $pays;
+        $this->pay_patient = $pay_patient;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getReturnPayPatient(): ?float
+    {
+        return $this->return_pay_patient;
+    }
+
+    /**
+     * @param float|null $return_pay_patient
+     */
+    public function setReturnPayPatient(?float $return_pay_patient): void
+    {
+        $this->return_pay_patient = $return_pay_patient;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getServicePrice(): ?float
+    {
+        return $this->service_price;
+    }
+
+    /**
+     * @param float|null $service_price
+     */
+    public function setServicePrice(?float $service_price): void
+    {
+        $this->service_price = $service_price;
+    }
+
+    /**
+     * @return float|null
+     */
+    public function getDifferencePrice(): ?float
+    {
+        return $this->difference_price;
+    }
+
+    /**
+     * @param float|null $difference_price
+     */
+    public function setDifferencePrice(?float $difference_price): void
+    {
+        $this->difference_price = $difference_price;
     }
 }

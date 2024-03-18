@@ -13,12 +13,14 @@ class PaymentRepository
      * @param $filter
      * @return LengthAwarePaginator
      */
-    public function paginate($filter): LengthAwarePaginator
+    public function paginate($filter)
     {
-        return Payment::query()
+        $payments =Payment::query()
             ->Filter($filter)
             ->orderByDesc('id')
-            ->paginate();
+            ->paginate(30);
+
+        return $payments->setCollection($payments->groupBy('patient.full_name'));
     }
 
     /**
