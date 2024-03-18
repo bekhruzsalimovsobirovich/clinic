@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $user_id
@@ -43,6 +43,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserId($value)
  * @property int $status to'langan bo'lsa 1, to'lanmagan bo'lsa 0
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereStatus($value)
+ * @property int $return_status qayta navbat holati 1, 0 bo'lsa birinchi marta kelgan
+ * @property array|null $pays to'lovlar
+ * @property-read UserPatient $user_patients
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment wherePays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereReturnStatus($value)
  * @mixin \Eloquent
  */
 class Payment extends Model

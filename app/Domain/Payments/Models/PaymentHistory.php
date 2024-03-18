@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * 
  *
  * @property int $id
  * @property int $user_id
@@ -33,6 +33,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereUserId($value)
  * @property int $status to'langan bo'lsa 1, to'lanmagan bo'lsa 0
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereStatus($value)
+ * @property int $return_status qayta navbat holati 1, 0 bo'lsa birinchi marta kelgan
+ * @property array|null $pays to'lovlar
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory wherePays($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PaymentHistory whereReturnStatus($value)
  * @mixin \Eloquent
  */
 class PaymentHistory extends Model
