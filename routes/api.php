@@ -4,6 +4,7 @@ use App\Http\Controllers\Agents\AgentController;
 use App\Http\Controllers\Appointments\AppointmentController;
 use App\Http\Controllers\Epidemiologics\EpidemiologicsController;
 use App\Http\Controllers\Illnesses\IllnessController;
+use App\Http\Controllers\MKB\MKBController;
 use App\Http\Controllers\Patients\PatientController;
 use App\Http\Controllers\Payments\PaymentController;
 use App\Http\Controllers\Registries\RegistryController;
@@ -78,3 +79,4 @@ Route::get('template/user/{user_id}',[TemplateController::class,'showUserTemplat
 Route::apiResource('user_patients',UserPatientController::class);
 Route::get('user_patient/all',[UserPatientController::class,'getAll']);
 Route::get('user_patient/{user_id}/patients',[UserPatientController::class,'getUserIDForPatient']);
+Route::get('/mkb',[MKBController::class,'index']);

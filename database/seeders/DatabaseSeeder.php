@@ -40,5 +40,9 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('nurse'),
             'role_id' => 3
         ]);
+
+//        $this->call([
+//            MKBSeeder::class
+//        ]);
     }
 }
