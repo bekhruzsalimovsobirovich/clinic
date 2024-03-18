@@ -23,12 +23,9 @@ return new class extends Migration
                 ->index()
                 ->nullable()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->unsignedDouble('pay_patient')->default(0);
-            $table->unsignedDouble('return_pay_patient')->default(0);
-            $table->unsignedDouble('service_price')->default(0);
-            $table->unsignedDouble('difference_price')->default(0);
             $table->tinyInteger('status')->default(0)->comment('to\'langan bo\'lsa 1, to\'lanmagan bo\'lsa 0');
             $table->tinyInteger('return_status')->default(0)->comment('qayta navbat holati 1, 0 bo\'lsa birinchi marta kelgan');
+            $table->json('pays')->nullable()->comment('to\'lovlar');
             $table->timestamps();
         });
     }

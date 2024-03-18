@@ -13,10 +13,26 @@ class PaymentRepository
      * @param $filter
      * @return LengthAwarePaginator
      */
-    public function paginate($filter)
+    public function navbat($filter)
     {
         $payments =Payment::query()
             ->Filter($filter)
+            ->where('return_status','=',0)
+            ->orderByDesc('id')
+            ->paginate(30);
+
+        return $payments->setCollection($payments->groupBy('patient.full_name'));
+    }
+
+    /**
+     * @param $filter
+     * @return LengthAwarePaginator
+     */
+    public function qaytaNavbat($filter)
+    {
+        $payments =Payment::query()
+            ->Filter($filter)
+            ->where('return_status','=',1)
             ->orderByDesc('id')
             ->paginate(30);
 

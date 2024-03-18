@@ -6,6 +6,8 @@ use App\Domain\Payments\DTO\StorePaymentDTO;
 use App\Domain\Payments\Models\Payment;
 use App\Domain\Payments\Models\PaymentHistory;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class StorePaymentAction
@@ -28,20 +30,14 @@ class StorePaymentAction
                 $payment->service_id = $dto->getServiceId()[$i];
                 $payment->status = $dto->getStatus();
                 $payment->return_status = $dto->getReturnStatus();
-                $payment->pay_patient = $dto->getPayPatient();
-                $payment->return_pay_patient = $dto->getReturnPayPatient();
-                $payment->service_price = $dto->getServicePrice();
-                $payment->difference_price = $dto->getDifferencePrice();
+                $payment->pays = $dto->getPays();
                 $payment->save();
 
                 $payment_history->patient_id = $dto->getPatientId();
                 $payment_history->service_id = $dto->getServiceId()[$i];
                 $payment_history->status = $dto->getStatus();
                 $payment_history->return_status = $dto->getReturnStatus();
-                $payment_history->pay_patient = $dto->getPayPatient();
-                $payment_history->return_pay_patient = $dto->getReturnPayPatient();
-                $payment_history->service_price = $dto->getServicePrice();
-                $payment_history->difference_price = $dto->getDifferencePrice();
+                $payment_history->pays = $dto->getPays();
                 $payment_history->save();
 
                 DB::commit();

@@ -32,11 +32,31 @@ class PaymentController extends Controller
      */
     public function index(PaymentFilterRequest $request)
     {
+//        $filter = app()->make(PaymentFilter::class, ['queryParams' => array_filter($request->validated())]);
+//        return response()
+//            ->json([
+//                'status' => true,
+//                'data' => $this->payments->paginate($filter)
+//            ]);
+    }
+
+    public function navbat(PaymentFilterRequest $request)
+    {
         $filter = app()->make(PaymentFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->payments->paginate($filter)
+                'data' => $this->payments->navbat($filter)
+            ]);
+    }
+
+    public function qaytaNavbat(PaymentFilterRequest $request)
+    {
+        $filter = app()->make(PaymentFilter::class, ['queryParams' => array_filter($request->validated())]);
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->payments->qaytaNavbat($filter)
             ]);
     }
 

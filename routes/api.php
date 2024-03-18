@@ -74,6 +74,8 @@ Route::get('payments',[PaymentController::class,'index']);
 Route::get('payment/all',[PaymentController::class,'getAll']);
 Route::post('payments',[PaymentController::class,'store']);
 Route::post('payment/{user_id}',[PaymentController::class,'getUserIDForPayment']);
+Route::get('payment/navbat',[PaymentController::class,'navbat']);
+Route::get('payment/qayta/navbat',[PaymentController::class,'qaytaNavbat']);
 Route::apiResource('templates',TemplateController::class);
 Route::get('template/user/{user_id}',[TemplateController::class,'showUserTemplate']);
 Route::apiResource('user_patients',UserPatientController::class);
