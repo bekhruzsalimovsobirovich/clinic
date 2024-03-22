@@ -80,5 +80,6 @@ Route::apiResource('templates',TemplateController::class);
 Route::get('template/user/{user_id}',[TemplateController::class,'showUserTemplate']);
 Route::apiResource('user_patients',UserPatientController::class);
 Route::get('user_patient/all',[UserPatientController::class,'getAll']);
-Route::get('user_patient/{user_id}/patients',[UserPatientController::class,'getUserIDForPatient']);
+Route::get('user_patient/{user_id}/patients/navbat',[UserPatientController::class,'getUserIDForPatientNavbat']);
+Route::get('user_patient/{user_id}/patients/qayta/navbat',[UserPatientController::class,'getUserIDForPatientQaytaNavbat']);
 Route::get('/mkb',[MKBController::class,'index']);

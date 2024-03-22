@@ -15,12 +15,29 @@ class PaymentRepository
      */
     public function navbat($filter)
     {
-        $payments =Payment::query()
+//        $collection = collect();
+//        $pays = Payment::query()
+//            ->with(['patient' => function($query){
+//                $query->select('id','full_name');
+//            }])
+//            ->without('service','user_patients')
+//            ->select('patient_id','return_status','pays')
+//            ->Filter($filter)
+//            ->where('return_status','=',0)
+//            ->groupBy('patient.full_name')
+//            ->first();
+//dd($pays);
+
+        $payments = Payment::query()
             ->Filter($filter)
             ->where('return_status','=',0)
             ->orderByDesc('id')
             ->paginate(30);
 
+//        $collection->push([
+//           $payments->setCollection($payments->groupBy('patient.full_name')),
+//           $pays
+//        ]);
         return $payments->setCollection($payments->groupBy('patient.full_name'));
     }
 

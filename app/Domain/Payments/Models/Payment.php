@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -61,6 +61,13 @@ class Payment extends Model
     protected $casts = [
         'pays' => 'json'
     ];
+
+
+
+//    public function services()
+//    {
+//        return $this->belongsTo(Service::class,'pays_title');
+//    }
 
     public function user_patients()
     {

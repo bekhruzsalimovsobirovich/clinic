@@ -54,12 +54,25 @@ class UserPatientController extends Controller
      * @param $user_id
      * @return JsonResponse
      */
-    public function getUserIDForPatient($user_id): JsonResponse
+    public function getUserIDForPatientNavbat($user_id): JsonResponse
     {
         return response()
             ->json([
                 'status' => true,
-                'data'=>$this->user_patients->getUserIDForPatient($user_id)
+                'data'=>$this->user_patients->getUserIDForPatientNavbat($user_id)
+            ]);
+    }
+
+    /**
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function getUserIDForPatientQaytaNavbat($user_id): JsonResponse
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data'=>$this->user_patients->getUserIDForPatientQaytaNavbat($user_id)
             ]);
     }
 

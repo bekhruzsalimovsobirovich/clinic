@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -56,8 +56,17 @@ class UserPatient extends Model
         return $this->belongsTo(Patient::class);
     }
 
-    public function payment()
+    public function paymentNavbat()
     {
-        return $this->hasMany(Payment::class,'patient_id','patient_id');
+        return $this->hasMany(Payment::class,'patient_id','patient_id')
+            ->without(['patient','user_patient','service'])
+            ->where('return_status','=',0);
+    }
+
+    public function paymentQaytaNavbat()
+    {
+        return $this->hasMany(Payment::class,'patient_id','patient_id')
+            ->without(['patient','user_patient','service'])
+            ->where('return_status','=',1);
     }
 }

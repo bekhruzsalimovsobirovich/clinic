@@ -39,12 +39,23 @@ class UserPatientRepository
      * @param $user_id
      * @return LengthAwarePaginator
      */
-    public function getUserIDForPatient($user_id): LengthAwarePaginator
+    public function getUserIDForPatientNavbat($user_id): LengthAwarePaginator
     {
         return UserPatient::query()
-            ->with(['user','patient','payment'=>function($query){
-                $query->without(['user','user_patient','service']);
-            }])
+            ->with(['user','patient','paymentNavbat'])
+            ->where('user_id','=',$user_id)
+            ->orderByDesc('id')
+            ->paginate();
+    }
+
+    /**
+     * @param $user_id
+     * @return LengthAwarePaginator
+     */
+    public function getUserIDForPatientQaytaNavbat($user_id): LengthAwarePaginator
+    {
+        return UserPatient::query()
+            ->with(['user','patient','paymentQaytaNavbat'])
             ->where('user_id','=',$user_id)
             ->orderByDesc('id')
             ->paginate();
