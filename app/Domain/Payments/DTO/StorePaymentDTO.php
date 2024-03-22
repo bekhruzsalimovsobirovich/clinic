@@ -10,11 +10,6 @@ class StorePaymentDTO
     private int $patient_id;
 
     /**
-     * @var array
-     */
-    private array $service_id;
-
-    /**
      * @var int|null
      */
     private ?int $status = null;
@@ -37,7 +32,6 @@ class StorePaymentDTO
     {
         $dto = new self();
         $dto->setPatientId($data['patient_id']);
-        $dto->setServiceId($data['service_id']);
         $dto->setStatus($data['status'] ?? 0);
         $dto->setReturnStatus($data['return_status'] ?? 0);
         $dto->setPays($data['pays'] ?? null);
@@ -58,22 +52,6 @@ class StorePaymentDTO
     public function setPatientId(int $patient_id): void
     {
         $this->patient_id = $patient_id;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getServiceId(): ?array
-    {
-        return $this->service_id;
-    }
-
-    /**
-     * @param array|null $service_id
-     */
-    public function setServiceId(?array $service_id): void
-    {
-        $this->service_id = $service_id;
     }
 
     /**

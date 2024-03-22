@@ -91,7 +91,6 @@ class PaymentController extends Controller
     {
         try {
             $request->validate([
-                'service_id' => 'required',
                 'patient_id' => 'required'
             ]);
         } catch (ValidationException $validate) {

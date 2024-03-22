@@ -56,18 +56,11 @@ class Payment extends Model
 
     protected $perPage = 30;
 
-    protected $with = ['service', 'patient','user_patients'];
+    protected $with = ['patient','user_patients'];
 
     protected $casts = [
         'pays' => 'json'
     ];
-
-
-
-//    public function services()
-//    {
-//        return $this->belongsTo(Service::class,'pays_title');
-//    }
 
     public function user_patients()
     {
@@ -80,13 +73,5 @@ class Payment extends Model
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class);
     }
 }
