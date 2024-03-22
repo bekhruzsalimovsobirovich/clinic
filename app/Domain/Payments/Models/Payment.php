@@ -54,12 +54,15 @@ class Payment extends Model
 {
     use HasFactory, Filterable;
 
+    protected $fillable = ['pays'];
+
     protected $perPage = 30;
 
     protected $with = ['patient','user_patients'];
 
     protected $casts = [
-        'pays' => 'json'
+        'pays' => 'json',
+        'services' => 'json',
     ];
 
     public function user_patients()

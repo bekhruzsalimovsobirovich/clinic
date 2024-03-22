@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -43,5 +43,10 @@ class PaymentHistory extends Model
 {
     use HasFactory;
 
-    protected $casts = ['pays' => 'json'];
+    protected $fillable = ['pays'];
+
+    protected $casts = [
+        'pays' => 'json',
+        'services' => 'json'
+    ];
 }

@@ -25,6 +25,11 @@ class StorePaymentDTO
     private ?array $pays = null;
 
     /**
+     * @var array|null
+     */
+    private ?array $services = null;
+
+    /**
      * @param array $data
      * @return StorePaymentDTO
      */
@@ -35,7 +40,24 @@ class StorePaymentDTO
         $dto->setStatus($data['status'] ?? 0);
         $dto->setReturnStatus($data['return_status'] ?? 0);
         $dto->setPays($data['pays'] ?? null);
+        $dto->setServices($data['services'] ?? null);
         return $dto;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getServices(): ?array
+    {
+        return $this->services;
+    }
+
+    /**
+     * @param array|null $services
+     */
+    public function setServices(?array $services): void
+    {
+        $this->services = $services;
     }
 
     /**
