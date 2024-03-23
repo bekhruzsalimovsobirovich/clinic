@@ -56,6 +56,7 @@ class StorePaymentAction
                     $mergeData = $dto->getPays();
                 }
                 $current_payment->pays = $mergeData;
+                $current_payment->status = $dto->getStatus() ?? 0;
                 $current_payment->update();
 
                 if($current_payment_history->pays != null){
@@ -64,6 +65,7 @@ class StorePaymentAction
                     $mergeDataHistory = $dto->getPays();
                 }
                 $current_payment_history->pays = $mergeDataHistory;
+                $current_payment_history->status = $dto->getStatus() ?? 0;
                 $current_payment_history->update();
                 DB::commit();
                 return $current_payment;
