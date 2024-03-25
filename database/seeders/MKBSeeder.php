@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Domain\MKB\Models\MKB;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -20,14 +21,25 @@ class MKBSeeder extends Seeder
 //            'file' => public_path('mkb_data.sql'),
 //        ]);
 
-        $sqlPath = public_path('mkb_data.sql'); // Path to your SQL file
-        $sqlContent = File::get($sqlPath);
-        $sqlQueries = explode(';', $sqlContent);
-
-        foreach ($sqlQueries as $query) {
-            if (!empty(trim($query))) {
-                DB::statement($query);
+        MKB::truncate();
+        $csvData = fopen(public_path('mkb10.csv'), 'r');
+        $transRow = true;
+        while (($data = fgetcsv($csvData, 555, ',')) !== false) {
+            if (!$transRow) {
+                MKB::create([
+                    'name' => $data['1'],
+                    'code' => $data['2'],
+                    'parent_id' => $data['3'],
+                    'parent_code' => $data['4'],
+                    'node_count' => $data['5'],
+                    'additional_info' => $data['6'],
+//                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
+            $transRow = false;
         }
+        fclose($csvData);
+
     }
 }

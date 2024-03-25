@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('parent_code')->nullable()->comment('Код вышестоящего объекта');
             $table->smallInteger('node_count')->default(0)->comment('Количество вложенных в текущую ветку');
             $table->text('additional_info')->nullable()->comment('Дополнительные данные');
+            $table->timestamps();
             $table->index('parent_id');
             $table->index('parent_code');
 
             // Foreign key constraint
-            $table->foreign('parent_id')->references('id')->on('class_mkb')->onDelete('set null');
+//            $table->foreign('parent_id')->references('id')->on('class_mkb')->onDelete('set null');
         });
     }
 
