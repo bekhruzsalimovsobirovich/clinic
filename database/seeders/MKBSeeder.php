@@ -16,30 +16,21 @@ class MKBSeeder extends Seeder
      */
     public function run(): void
     {
-        // Call the custom Artisan command to run the SQL file
-//        Artisan::call('sql:mkb', [
-//            'file' => public_path('mkb_data.sql'),
-//        ]);
-
+        print_r('MKB-10 creating...'.PHP_EOL);
         MKB::truncate();
         $csvData = fopen(public_path('mkb10.csv'), 'r');
         $transRow = true;
         while (($data = fgetcsv($csvData, 555, ',')) !== false) {
             if (!$transRow) {
                 MKB::create([
+                    'code' => $data['0'],
                     'name' => $data['1'],
-                    'code' => $data['2'],
-                    'parent_id' => $data['3'],
-                    'parent_code' => $data['4'],
-                    'node_count' => $data['5'],
-                    'additional_info' => $data['6'],
-//                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'parent_code' => $data['2'],
+                    'updated_at' => now()
                 ]);
             }
             $transRow = false;
         }
         fclose($csvData);
-
     }
 }
