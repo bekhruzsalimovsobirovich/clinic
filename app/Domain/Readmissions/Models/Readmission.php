@@ -14,6 +14,8 @@ class Readmission extends Model
 
     protected $perPage = 30;
 
+    protected $with = ['patient'];
+
     /**
      * @return BelongsTo
      */
