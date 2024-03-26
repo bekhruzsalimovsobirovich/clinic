@@ -19,7 +19,6 @@ return new class extends Migration
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->text('body');
             $table->json('files')->nullable();
-            $table->json('mkb')->nullable();
             $table->timestamps();
         });
     }

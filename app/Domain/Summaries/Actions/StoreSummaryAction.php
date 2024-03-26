@@ -22,7 +22,6 @@ class StoreSummaryAction
             $summary->patient_id = $dto->getPatientId();
             $summary->body = $dto->getBody();
             $summary->files = $dto->getFiles();
-            $summary->mkb = $dto->getMkb();
             $summary->save();
         } catch (Exception $exception) {
             DB::rollBack();

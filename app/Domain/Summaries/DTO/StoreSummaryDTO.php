@@ -20,11 +20,6 @@ class StoreSummaryDTO
     private ?array $files = null;
 
     /**
-     * @var array|null
-     */
-    private ?array $mkb = null;
-
-    /**
      * @param array $data
      * @return StoreSummaryDTO
      */
@@ -34,7 +29,6 @@ class StoreSummaryDTO
         $dto->setPatientId($data['patient_id']);
         $dto->setBody($data['body']);
         $dto->setFiles($data['files'] ?? null);
-        $dto->setMkb($data['mkb'] ?? null);
 
         return $dto;
     }
@@ -85,21 +79,5 @@ class StoreSummaryDTO
     public function setFiles(?array $files): void
     {
         $this->files = $files;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getMkb(): ?array
-    {
-        return $this->mkb;
-    }
-
-    /**
-     * @param array|null $mkb
-     */
-    public function setMkb(?array $mkb): void
-    {
-        $this->mkb = $mkb;
     }
 }

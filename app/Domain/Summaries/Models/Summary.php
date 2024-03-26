@@ -19,11 +19,10 @@ class Summary extends Model
     protected $perPage = 30;
 
     protected $casts = [
-        'files' => 'json',
-        'mkb' => 'json',
+        'files' => 'json'
     ];
 
-    protected $with = ['patient','mkbs'];
+    protected $with = ['patient'];
 
     /**
      * @return BelongsTo
@@ -31,14 +30,6 @@ class Summary extends Model
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function mkbs(): BelongsTo
-    {
-        return $this->belongsTo(MKB::class)->whereJsonContains('mkb->class_mkb_id', $this->id);
     }
 
     /**
