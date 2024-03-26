@@ -9,6 +9,7 @@ use App\Filters\PaymentFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Filters\PaymentFilterRequest;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -47,6 +48,19 @@ class PaymentController extends Controller
             ->json([
                 'status' => true,
                 'data' => $this->payments->navbat($filter)
+            ]);
+    }
+
+    /**
+     * @return JsonResponse
+     * qarzdorlar ro'yxati
+     */
+    public function debtors()
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->payments->debtors()
             ]);
     }
 

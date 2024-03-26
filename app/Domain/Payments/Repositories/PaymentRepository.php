@@ -58,4 +58,16 @@ class PaymentRepository
             ->orderByDesc('id')
             ->paginate();
     }
+
+    /**
+     * @return LengthAwarePaginator
+     * qarzdorlar ro'yxati
+     */
+    public function debtors(): LengthAwarePaginator
+    {
+        return Payment::query()
+            ->where('status','=',0)
+            ->orderByDesc('id')
+            ->paginate();
+    }
 }
