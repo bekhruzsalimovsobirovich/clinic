@@ -93,5 +93,4 @@ Route::get('readmission/qaytaNavbat/all',[ReadmissionController::class,'getAllQa
 Route::get('readmission/disponser/paginate',[ReadmissionController::class,'indexDisponser']);
 Route::get('readmission/disponser/all',[ReadmissionController::class,'getAllDisponser']);
 Route::post('files/store',[FileController::class,'store']);
-Route::apiResource('summaries',SummaryController::class);
-Route::get('summary/all',[SummaryController::class,'getAll']);
+Route::post('patient/summary',[PatientController::class,'summary']);

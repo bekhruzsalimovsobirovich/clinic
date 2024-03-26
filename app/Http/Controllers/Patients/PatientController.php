@@ -204,13 +204,34 @@ class PatientController extends Controller
 //    patient epidemiologic
     public function attach(Request $request)
     {
-//        dd($request->all());
         $patient = Patient::find($request->patient_id);
         $patient->epidemiologics()->sync($request->epidemiologic_id);
 
         return response()
             ->json([
                 'status' => true,
+                'data' => $patient
+            ]);
+    }
+
+    //update ckeditor,mkb,files patient
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function summary(Request $request)
+    {
+        $patient = Patient::find($request->patient_id);
+        $patient->body = $request->body;
+        $patient->files = $request->file;
+        $patient->mkb = $request->mkb;
+        $patient->update();
+
+        return response()
+            ->json([
+                'status' => true,
+                'message' => 'Summary updated successfully!',
                 'data' => $patient
             ]);
     }

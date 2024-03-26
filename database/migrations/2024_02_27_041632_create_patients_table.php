@@ -32,6 +32,8 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('avatar_path')->nullable();
             $table->string('code')->unique();
+            $table->text('body')->nullable();
+            $table->json('files')->nullable();
             $table->json('mkb')->nullable();
             $table->timestamps();
         });

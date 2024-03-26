@@ -4,15 +4,19 @@ namespace App\Domain\Patients\Models;
 
 use App\Domain\Agents\Models\Agent;
 use App\Domain\Epidemiologics\Models\Epidemiologic;
+use App\Domain\Files\Models\File;
+use App\Domain\MKB\Models\MKB;
 use App\Domain\UserPatients\Models\UserPatient;
 use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
- * 
+ *
  *
  * @property int $id
  * @property int $user_id
@@ -61,10 +65,14 @@ class Patient extends Model
 {
     use HasFactory, Filterable;
 
+    protected $fillable = ['files','mkb'];
+
     protected $with = ['agent','epidemiologics'];
 
     protected $casts = [
-        'province_city' => 'json'
+        'province_city' => 'json',
+        'files' => 'json',
+        'mkb' => 'json'
     ];
 
     protected $perPage = 20;
@@ -82,5 +90,21 @@ class Patient extends Model
     public function users()
     {
         return $this->belongsToMany(User::class,'user_patients');
+    }
+
+//    /**
+//     * @return BelongsTo
+//     */
+//    public function mkbs()
+//    {
+//        return $this->belongsTo(MKB::class,'mkb','id');
+//    }
+
+    /**
+     * @return MorphMany
+     */
+    public function files(): MorphMany
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }
