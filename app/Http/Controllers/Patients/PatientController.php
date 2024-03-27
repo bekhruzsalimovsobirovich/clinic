@@ -223,9 +223,9 @@ class PatientController extends Controller
     public function summary(Request $request)
     {
         $patient = Patient::find($request->patient_id);
-        $patient->body = $request->body;
-        $patient->files = $request->file;
-        $patient->mkb = $request->mkb;
+        $patient->body = $request->body ?? $patient->body;
+        $patient->files = $request->file ?? $patient->files;
+        $patient->mkb = $request->mkb ?? $patient->mkb;
         $patient->update();
 
         return response()
