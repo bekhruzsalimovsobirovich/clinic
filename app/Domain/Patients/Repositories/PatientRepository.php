@@ -17,6 +17,7 @@ class PatientRepository
     {
         return Patient::query()
             ->Filter($filter)
+            ->where('status',0)
             ->orderBy('id','desc')
             ->get();
     }
@@ -28,6 +29,7 @@ class PatientRepository
     {
         return Patient::query()
             ->Filter($filter)
+            ->where('status',0)
             ->orderBy('id','desc')
             ->paginate();
     }
@@ -38,6 +40,7 @@ class PatientRepository
     public function getAll(): Collection|array
     {
         return Patient::query()
+            ->where('status',0)
             ->orderBy('id','desc')
             ->get();
     }

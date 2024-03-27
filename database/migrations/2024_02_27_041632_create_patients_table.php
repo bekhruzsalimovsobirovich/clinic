@@ -21,6 +21,9 @@ return new class extends Migration
             $table->foreignIdFor(Agent::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->uuid()->unique();
+            $table->string('code')->unique();
+            $table->integer('status')->default(0);
             $table->string('full_name');
             $table->string('workplace')->comment('ish joyi')->nullable();
             $table->date('birthday');
@@ -31,7 +34,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('avatar')->nullable();
             $table->string('avatar_path')->nullable();
-            $table->string('code')->unique();
             $table->text('body')->nullable();
             $table->json('files')->nullable();
             $table->json('mkb')->nullable();

@@ -58,7 +58,6 @@ class PatientController extends Controller
      */
     public function index()
     {
-//        $filter = app()->make(PatientFilter::class, ['queryParams' => array_filter($request->validated())]);
         return response()
             ->json([
                 'status' => true,
@@ -233,6 +232,28 @@ class PatientController extends Controller
                 'status' => true,
                 'message' => 'Summary updated successfully!',
                 'data' => $patient
+            ]);
+    }
+
+    /**
+     * @return JsonResponse
+     * qabulni yakunlash
+     */
+    public function updateStatusPatient(Request $request)
+    {
+        $request->validate([
+            'patient_id' => 'required',
+            'status' => 'required|integer'
+        ]);
+
+        $patient = Patient::find($request->patient_id);
+        $patient->status = $request->status;
+        $patient->update();
+
+        return response()
+            ->json([
+                'status' => true,
+                'message' => 'Qabul yakunlandi!'
             ]);
     }
 }

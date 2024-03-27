@@ -6,6 +6,7 @@ use App\Domain\Patients\DTO\StorePatientDTO;
 use App\Domain\Patients\Models\Patient;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class StorePatientAction
 {
@@ -21,6 +22,7 @@ class StorePatientAction
             $patient = new Patient();
             $patient->user_id = $dto->getUserId();
             $patient->code = $dto->getCode();
+            $patient->uuid = Str::uuid();
             $patient->agent_id = $dto->getAgentId();
             $patient->full_name = $dto->getFullName();
             $patient->workplace = $dto->getWorkplace();

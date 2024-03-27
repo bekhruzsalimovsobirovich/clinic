@@ -95,3 +95,4 @@ Route::get('readmission/disponser/all',[ReadmissionController::class,'getAllDisp
 Route::post('files/store',[FileController::class,'store']);
 Route::post('files/destroy',[FileController::class,'destroy']);
 Route::put('patient/summary',[PatientController::class,'summary']);
+Route::post('patient/status',[PatientController::class,'updateStatusPatient']);
