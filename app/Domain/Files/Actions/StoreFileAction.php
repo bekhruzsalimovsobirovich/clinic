@@ -15,7 +15,7 @@ class StoreFileAction
             $image = new File();
             $file = $dto->getTitle()[$i];
             $extension = $file->getClientOriginalExtension();
-            $filename = time() . Str::random(4) . '.' . $extension;
+            $filename = time() . '_' . Str::random(6) . '.' . $extension;
             // File upload location
             $location = 'files/';
             // Upload file
@@ -28,6 +28,7 @@ class StoreFileAction
             $image->save();
             $data[$i] = [
                 'id' => $image->id,
+                'title' => $image->title,
                 'path' => $filepath
             ];
         }

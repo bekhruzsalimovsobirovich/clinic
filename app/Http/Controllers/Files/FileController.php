@@ -7,6 +7,7 @@ use App\Domain\Files\DTO\StoreFileDTO;
 use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Validation\ValidationException;
 
 class FileController extends Controller
@@ -41,6 +42,45 @@ class FileController extends Controller
                 ->json([
                     'status' => false,
                     'message' => $exception->getMessage()
+                ]);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        try {
+            $request->validate([
+                'title.*' => 'required|string'
+            ]);
+        } catch (ValidationException $validationException) {
+            return response()
+                ->json([
+                    'status' => false,
+                    'message' => $validationException->getMessage(),
+                    'data' => $validationException->validator->errors()
+                ]);
+        }
+
+        try {
+            $files = $request->title;
+
+            for ($i = 0; $i < count($files); $i++) {
+                $image = \App\Domain\Files\Models\File::query()->where('title','=',$files[$i])->first();
+                $image->delete();
+                File::delete('files/' . $files[$i]);
+            }
+
+            return response()
+                ->json([
+                    'status' => true,
+                    'message' => 'Images deleted successfully.'
+                ]);
+        } catch (Exception $exception) {
+            return response()
+                ->json([
+                    'status' => false,
+                    'message' => $exception->getMessage(),
+                    'request' => $request->all()
                 ]);
         }
     }
