@@ -1,5 +1,6 @@
 <?php
 
+use App\Domain\Admissions\Models\Admission;
 use App\Domain\Patients\Models\Patient;
 use App\Domain\Services\Models\Service;
 use App\Models\User;
@@ -19,10 +20,11 @@ return new class extends Migration
             $table->foreignIdFor(Patient::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->json('services');
+            $table->foreignIdFor(Admission::class)
+                ->index()
+                ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->json('pays')->comment('to\'lovlar');
             $table->tinyInteger('status')->default(0)->comment('to\'langan bo\'lsa 1, to\'lanmagan bo\'lsa 0');
-            $table->tinyInteger('return_status')->default(0)->comment('qayta navbat holati 1, 0 bo\'lsa birinchi marta kelgan');
-            $table->json('pays')->nullable()->comment('to\'lovlar');
             $table->timestamps();
         });
     }

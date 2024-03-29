@@ -46,7 +46,6 @@ class PaymentHistory extends Model
     protected $fillable = ['pays'];
 
     protected $casts = [
-        'pays' => 'json',
-        'services' => 'json'
+        'pays' => 'json'
     ];
 }

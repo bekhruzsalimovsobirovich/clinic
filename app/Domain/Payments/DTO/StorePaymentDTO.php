@@ -10,24 +10,19 @@ class StorePaymentDTO
     private int $patient_id;
 
     /**
+     * @var int
+     */
+    private int $admission_id;
+
+    /**
      * @var int|null
      */
     private ?int $status = null;
 
     /**
-     * @var int|null
-     */
-    private ?int $return_status = null;
-
-    /**
      * @var array|null
      */
     private ?array $pays = null;
-
-    /**
-     * @var array|null
-     */
-    private ?array $services = null;
 
     /**
      * @param array $data
@@ -37,27 +32,10 @@ class StorePaymentDTO
     {
         $dto = new self();
         $dto->setPatientId($data['patient_id']);
+        $dto->setAdmissionId($data['admission_id']);
         $dto->setStatus($data['status'] ?? 0);
-        $dto->setReturnStatus($data['return_status'] ?? 0);
         $dto->setPays($data['pays'] ?? null);
-        $dto->setServices($data['services'] ?? null);
         return $dto;
-    }
-
-    /**
-     * @return array|null
-     */
-    public function getServices(): ?array
-    {
-        return $this->services;
-    }
-
-    /**
-     * @param array|null $services
-     */
-    public function setServices(?array $services): void
-    {
-        $this->services = $services;
     }
 
     /**
@@ -77,6 +55,22 @@ class StorePaymentDTO
     }
 
     /**
+     * @return int
+     */
+    public function getAdmissionId(): int
+    {
+        return $this->admission_id;
+    }
+
+    /**
+     * @param int $admission_id
+     */
+    public function setAdmissionId(int $admission_id): void
+    {
+        $this->admission_id = $admission_id;
+    }
+
+    /**
      * @return int|null
      */
     public function getStatus(): ?int
@@ -90,22 +84,6 @@ class StorePaymentDTO
     public function setStatus(?int $status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return int|null
-     */
-    public function getReturnStatus(): ?int
-    {
-        return $this->return_status;
-    }
-
-    /**
-     * @param int|null $return_status
-     */
-    public function setReturnStatus(?int $return_status): void
-    {
-        $this->return_status = $return_status;
     }
 
     /**

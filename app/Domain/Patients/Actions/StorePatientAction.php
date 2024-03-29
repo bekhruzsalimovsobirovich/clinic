@@ -21,9 +21,8 @@ class StorePatientAction
         try {
             $patient = new Patient();
             $patient->user_id = $dto->getUserId();
-            $patient->code = $dto->getCode();
-            $patient->uuid = Str::uuid();
             $patient->agent_id = $dto->getAgentId();
+            $patient->code = $dto->getCode();
             $patient->full_name = $dto->getFullName();
             $patient->workplace = $dto->getWorkplace();
             $patient->birthday = $dto->getBirthday();

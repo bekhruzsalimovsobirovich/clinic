@@ -10,32 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 class PaymentRepository
 {
     /**
-     * @param $filter
-     * @return LengthAwarePaginator
-     */
-    public function navbat($filter)
-    {
-        return Payment::query()
-            ->Filter($filter)
-            ->where('return_status','=',0)
-            ->orderByDesc('id')
-            ->paginate(30);
-    }
-
-    /**
-     * @param $filter
-     * @return LengthAwarePaginator
-     */
-    public function qaytaNavbat($filter)
-    {
-        return Payment::query()
-            ->Filter($filter)
-            ->where('return_status','=',1)
-            ->orderByDesc('id')
-            ->paginate(30);
-    }
-
-    /**
      * @return Builder[]|Collection
      */
     public function getAll(): Collection|array

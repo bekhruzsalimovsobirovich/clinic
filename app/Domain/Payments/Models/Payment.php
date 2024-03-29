@@ -2,6 +2,7 @@
 
 namespace App\Domain\Payments\Models;
 
+use App\Domain\Admissions\Models\Admission;
 use App\Domain\Patients\Models\Patient;
 use App\Domain\Services\Models\Service;
 use App\Domain\UserPatients\Models\UserPatient;
@@ -76,5 +77,13 @@ class Payment extends Model
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function admission(): BelongsTo
+    {
+        return $this->belongsTo(Admission::class);
     }
 }

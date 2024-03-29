@@ -213,47 +213,47 @@ class PatientController extends Controller
             ]);
     }
 
-    //update ckeditor,mkb,files patient
+//    //update ckeditor,mkb,files patient
+//
+//    /**
+//     * @param Request $request
+//     * @return JsonResponse
+//     */
+//    public function summary(Request $request)
+//    {
+//        $patient = Patient::find($request->patient_id);
+//        $patient->body = $request->body ?? $patient->body;
+//        $patient->files = $request->file ?? $patient->files;
+//        $patient->mkb = $request->mkb ?? $patient->mkb;
+//        $patient->update();
+//
+//        return response()
+//            ->json([
+//                'status' => true,
+//                'message' => 'Summary updated successfully!',
+//                'data' => $patient
+//            ]);
+//    }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function summary(Request $request)
-    {
-        $patient = Patient::find($request->patient_id);
-        $patient->body = $request->body ?? $patient->body;
-        $patient->files = $request->file ?? $patient->files;
-        $patient->mkb = $request->mkb ?? $patient->mkb;
-        $patient->update();
-
-        return response()
-            ->json([
-                'status' => true,
-                'message' => 'Summary updated successfully!',
-                'data' => $patient
-            ]);
-    }
-
-    /**
-     * @return JsonResponse
-     * qabulni yakunlash
-     */
-    public function updateStatusPatient(Request $request)
-    {
-        $request->validate([
-            'patient_id' => 'required',
-            'status' => 'required|integer'
-        ]);
-
-        $patient = Patient::find($request->patient_id);
-        $patient->status = $request->status;
-        $patient->update();
-
-        return response()
-            ->json([
-                'status' => true,
-                'message' => 'Qabul yakunlandi!'
-            ]);
-    }
+//    /**
+//     * @return JsonResponse
+//     * qabulni yakunlash
+//     */
+//    public function updateStatusPatient(Request $request)
+//    {
+//        $request->validate([
+//            'patient_id' => 'required',
+//            'status' => 'required|integer'
+//        ]);
+//
+//        $patient = Patient::find($request->patient_id);
+//        $patient->status = $request->status;
+//        $patient->update();
+//
+//        return response()
+//            ->json([
+//                'status' => true,
+//                'message' => 'Qabul yakunlandi!'
+//            ]);
+//    }
 }

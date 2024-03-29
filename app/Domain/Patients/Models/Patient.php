@@ -2,10 +2,12 @@
 
 namespace App\Domain\Patients\Models;
 
+use App\Domain\Admissions\Models\Admission;
 use App\Domain\Agents\Models\Agent;
 use App\Domain\Epidemiologics\Models\Epidemiologic;
 use App\Domain\Files\Models\File;
 use App\Domain\MKB\Models\MKB;
+use App\Domain\Payments\Models\Payment;
 use App\Domain\UserPatients\Models\UserPatient;
 use App\Models\Traits\Filterable;
 use App\Models\User;
@@ -13,6 +15,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
@@ -65,46 +69,60 @@ class Patient extends Model
 {
     use HasFactory, Filterable;
 
-    protected $fillable = ['files','mkb'];
-
-    protected $with = ['agent','epidemiologics'];
+    protected $with = ['agent', 'epidemiologics','payments','admissions'];
 
     protected $casts = [
-        'province_city' => 'json',
-        'files' => 'json',
-        'mkb' => 'json'
+        'province_city' => 'json'
     ];
 
     protected $perPage = 20;
 
-    public function agent()
+    /**
+     * @return BelongsTo
+     */
+    public function agent(): BelongsTo
     {
         return $this->belongsTo(Agent::class);
     }
 
-    public function epidemiologics()
+    /**
+     * @return BelongsToMany
+     */
+    public function epidemiologics(): BelongsToMany
     {
-        return $this->belongsToMany(Epidemiologic::class,'patient_epidemiologics');
+        return $this->belongsToMany(Epidemiologic::class, 'patient_epidemiologics');
     }
-
-    public function users()
-    {
-        return $this->belongsToMany(User::class,'user_patients');
-    }
-
-//    /**
-//     * @return BelongsTo
-//     */
-//    public function mkbs()
-//    {
-//        return $this->belongsTo(MKB::class,'mkb','id');
-//    }
 
     /**
-     * @return MorphMany
+     * @return BelongsToMany
      */
-    public function files(): MorphMany
+    public function users()
     {
-        return $this->morphMany(File::class, 'fileable');
+        return $this->belongsToMany(User::class, 'user_patients');
     }
+
+    /**
+     * @return HasMany
+     */
+    public function payments(): HasMany
+    {
+        return $this->hasMany(Payment::class)->without(['patient']);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function admissions(): HasMany
+    {
+        return $this->hasMany(Admission::class);
+    }
+
+
+//    /**
+//     * @return MorphMany
+//     */
+//    public function files(): MorphMany
+//    {
+//        return $this->morphMany(File::class, 'fileable');
+//    }
 }

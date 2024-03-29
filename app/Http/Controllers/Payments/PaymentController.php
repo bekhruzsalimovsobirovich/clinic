@@ -41,16 +41,6 @@ class PaymentController extends Controller
 //            ]);
     }
 
-    public function navbat(PaymentFilterRequest $request)
-    {
-        $filter = app()->make(PaymentFilter::class, ['queryParams' => array_filter($request->validated())]);
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->payments->navbat($filter)
-            ]);
-    }
-
     /**
      * @return JsonResponse
      * qarzdorlar ro'yxati
@@ -61,16 +51,6 @@ class PaymentController extends Controller
             ->json([
                 'status' => true,
                 'data' => $this->payments->debtors()
-            ]);
-    }
-
-    public function qaytaNavbat(PaymentFilterRequest $request)
-    {
-        $filter = app()->make(PaymentFilter::class, ['queryParams' => array_filter($request->validated())]);
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->payments->qaytaNavbat($filter)
             ]);
     }
 
@@ -105,7 +85,10 @@ class PaymentController extends Controller
     {
         try {
             $request->validate([
-                'patient_id' => 'required'
+                'patient_id' => 'required',
+                'admission_id' => 'required',
+                'pays' => 'required',
+                'status' => 'required'
             ]);
         } catch (ValidationException $validate) {
             return response()->json([

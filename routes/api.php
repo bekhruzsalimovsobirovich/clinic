@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admissions\AdmissionController;
 use App\Http\Controllers\Agents\AgentController;
 use App\Http\Controllers\Appointments\AppointmentController;
 use App\Http\Controllers\Epidemiologics\EpidemiologicsController;
@@ -77,9 +78,7 @@ Route::get('payments',[PaymentController::class,'index']);
 Route::get('payment/all',[PaymentController::class,'getAll']);
 Route::post('payments',[PaymentController::class,'store']);
 Route::post('payment/{user_id}',[PaymentController::class,'getUserIDForPayment']);
-Route::get('payment/navbat',[PaymentController::class,'navbat']);
 Route::get('payment/debtors',[PaymentController::class,'debtors']);
-Route::get('payment/qayta/navbat',[PaymentController::class,'qaytaNavbat']);
 Route::apiResource('templates',TemplateController::class);
 Route::get('template/user/{user_id}',[TemplateController::class,'showUserTemplate']);
 Route::apiResource('user_patients',UserPatientController::class);
@@ -94,5 +93,6 @@ Route::get('readmission/disponser/paginate',[ReadmissionController::class,'index
 Route::get('readmission/disponser/all',[ReadmissionController::class,'getAllDisponser']);
 Route::post('files/store',[FileController::class,'store']);
 Route::post('files/destroy',[FileController::class,'destroy']);
-Route::put('patient/summary',[PatientController::class,'summary']);
-Route::post('patient/status',[PatientController::class,'updateStatusPatient']);
+Route::apiResource('admissions',AdmissionController::class);
+//Route::put('patient/summary',[PatientController::class,'summary']);
+//Route::post('patient/status',[PatientController::class,'updateStatusPatient']);
