@@ -2,6 +2,7 @@
 
 namespace App\Domain\UserPatients\Models;
 
+use App\Domain\Admissions\Models\Admission;
 use App\Domain\Patients\Models\Patient;
 use App\Domain\Payments\Models\Payment;
 use App\Models\User;
@@ -38,7 +39,7 @@ class UserPatient extends Model
 
     protected $perPage = 30;
 
-//    protected $with = ['user','patient','payment'];
+    protected $with = ['user','patient','payment'];
 
     /**
      * @return BelongsTo
@@ -56,17 +57,23 @@ class UserPatient extends Model
         return $this->belongsTo(Patient::class);
     }
 
-    public function paymentNavbat()
+    public function payment(): BelongsTo
     {
-        return $this->hasMany(Payment::class,'patient_id','patient_id')
-            ->without(['patient','user_patient','service'])
-            ->where('return_status','=',0);
+        return $this->belongsTo(Payment::class,'patient_id','patient_id')
+            ->without(['patient','user_patients']);
     }
 
-    public function paymentQaytaNavbat()
+    public function admissionNavbat()
     {
-        return $this->hasMany(Payment::class,'patient_id','patient_id')
-            ->without(['patient','user_patient','service'])
-            ->where('return_status','=',1);
+        return $this->hasMany(Admission::class,'patient_id','patient_id')
+            ->without(['patient'])
+            ->where('status','=',1);
+    }
+
+    public function admissionQaytaNavbat()
+    {
+        return $this->hasMany(Admission::class,'patient_id','patient_id')
+            ->without(['patient'])
+            ->where('status','=',2);
     }
 }

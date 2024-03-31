@@ -87,7 +87,7 @@ class PaymentController extends Controller
             $request->validate([
                 'patient_id' => 'required',
                 'admission_id' => 'required',
-                'pays' => 'required',
+                'pays' => 'nullable',
                 'status' => 'required'
             ]);
         } catch (ValidationException $validate) {

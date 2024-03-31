@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreignIdFor(Admission::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->json('pays')->comment('to\'lovlar');
+            $table->json('pays')->comment('to\'lovlar')->nullable();
             $table->tinyInteger('status')->default(0)->comment('to\'langan bo\'lsa 1, to\'lanmagan bo\'lsa 0');
             $table->timestamps();
         });
