@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Payments;
 
-use App\Domain\Payments\Actions\StorePaymentAction;
 use App\Domain\Payments\DTO\StorePaymentDTO;
+use App\Domain\Payments\Actions\StorePaymentAction;
 use App\Domain\Payments\Repositories\PaymentRepository;
-use App\Filters\PaymentFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Filters\PaymentFilterRequest;
 use Exception;

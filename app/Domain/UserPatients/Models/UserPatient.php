@@ -54,7 +54,8 @@ class UserPatient extends Model
      */
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(Patient::class);
+        return $this->belongsTo(Patient::class)
+            ->without(['payments','admissions']);
     }
 
     public function payment(): BelongsTo

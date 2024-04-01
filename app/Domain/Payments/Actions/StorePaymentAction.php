@@ -6,8 +6,6 @@ use App\Domain\Payments\DTO\StorePaymentDTO;
 use App\Domain\Payments\Models\Payment;
 use App\Domain\Payments\Models\PaymentHistory;
 use Exception;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class StorePaymentAction
