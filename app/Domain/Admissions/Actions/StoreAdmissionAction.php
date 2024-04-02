@@ -21,6 +21,7 @@ class StoreAdmissionAction
         try {
             $admission = new Admission();
             $admission->patient_id = $dto->getPatientId();
+            $admission->title = $dto->getTitle();
             $admission->uuid = Str::uuid();
             $admission->admissions = $dto->getAdmissions();
             $admission->status = $dto->getStatus();

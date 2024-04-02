@@ -60,4 +60,20 @@ class UserPatientRepository
             ->orderByDesc('id')
             ->paginate();
     }
+
+    public function paginateNavbat()
+    {
+        return UserPatient::query()
+            ->with(['user','patient','admissionNavbat'])
+            ->orderByDesc('id')
+            ->paginate();
+    }
+
+    public function paginateQaytaNavbat()
+    {
+        return UserPatient::query()
+            ->with(['user','patient','admissionQaytaNavbat'])
+            ->orderByDesc('id')
+            ->paginate();
+    }
 }

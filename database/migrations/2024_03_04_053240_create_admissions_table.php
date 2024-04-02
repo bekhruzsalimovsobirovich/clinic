@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Patient::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('title')->comment('priyom nomi');
             $table->json('admissions')->comment('priyom');
             $table->uuid('uuid')->comment('uuid');
             $table->integer('status')->comment('1 - navbat, 2 - qayta navbat');

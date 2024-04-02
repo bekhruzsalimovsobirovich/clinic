@@ -32,11 +32,7 @@ return new class extends Migration
             $table->string('avatar_path')->nullable();
             $table->string('code')->unique();
             $table->text('description')->nullable();
-
-//            $table->integer('status')->default(0);
-//            $table->text('body')->nullable();
-//            $table->json('files')->nullable();
-//            $table->json('mkb')->nullable();
+            $table->integer('status')->default(0)->comment('0 bo\'lsa qabul davom etmoqda, 1 - bo\'lsa qabul tugagan');
             $table->timestamps();
         });
     }

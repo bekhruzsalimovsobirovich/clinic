@@ -10,6 +10,11 @@ class StoreAdmissionDTO
     private int $patient_id;
 
     /**
+     * @var string
+     */
+    private string $title;
+
+    /**
      * @var array
      */
     private array $admissions;
@@ -27,10 +32,27 @@ class StoreAdmissionDTO
     {
         $dto = new self();
         $dto->setPatientId($data['patient_id']);
+        $dto->setTitle($data['title']);
         $dto->setAdmissions($data['admissions']);
         $dto->setStatus($data['status']);
 
         return $dto;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
     }
 
     /**
