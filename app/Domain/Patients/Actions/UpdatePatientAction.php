@@ -38,8 +38,8 @@ class UpdatePatientAction
                 $image = $dto->getAvatar();
                 $filename = Str::random(4) . '_' . time() . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('public/files/patients/images', $filename);
-                $patient->image = $filename;
-                $patient->image_path = url('storage/files/patients/images/' . $filename);
+                $patient->avatar = $filename;
+                $patient->avatar_path = url('storage/files/patients/images/' . $filename);
             }
 
 //            if ($dto->getAvatar()) {
