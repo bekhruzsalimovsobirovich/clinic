@@ -187,8 +187,8 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        if (File::exists(public_path('images/patients/' . $patient->avatar))) {
-            File::delete(public_path('images/patients/' . $patient->avatar));
+        if (File::delete('storage/files/patients/images/' . $patient->avatar)) {
+            File::delete('storage/files/patients/images/' . $patient->avatar);
         }
 
         $patient->delete();

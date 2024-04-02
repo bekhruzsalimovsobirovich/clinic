@@ -16,12 +16,10 @@ class StoreFileAction
             $file = $dto->getTitle()[$i];
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '_' . Str::random(6) . '.' . $extension;
-            // File upload location
-            $location = 'files/';
             // Upload file
-            $file->move($location, $filename);
+            $file->storeAs('public/files/files', $filename);
             // File path
-            $filepath = url('files/' . $filename);
+            $filepath = url('storage/files/files/' . $filename);
 
             $image->title = $filename;
             $image->path = $filepath;

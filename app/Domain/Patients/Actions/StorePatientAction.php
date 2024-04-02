@@ -32,14 +32,22 @@ class StorePatientAction
             $patient->phone = $dto->getPhone();
             $patient->description = $dto->getDescription();
 
-            if ($dto->getAvatar()) {
-                $file = $dto->getAvatar();
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $file->move('images/patients/', $filename);
-                $patient->avatar = $filename;
-                $patient->avatar_path = url('images/patients/' . $filename);
+            if ($dto->getAvatar() !== null) {
+                $image = $dto->getAvatar();
+                $filename = Str::random(4) . '_' . time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/files/patients/images', $filename);
+                $patient->image = $filename;
+                $patient->image_path = url('storage/files/patients/images/' . $filename);
             }
+
+//            if ($dto->getAvatar()) {
+//                $file = $dto->getAvatar();
+//                $extension = $file->getClientOriginalExtension();
+//                $filename = time() . '.' . $extension;
+//                $file->move('images/patients/', $filename);
+//                $patient->avatar = $filename;
+//                $patient->avatar_path = url('images/patients/' . $filename);
+//            }
 
             $patient->save();
         } catch (Exception $exception) {

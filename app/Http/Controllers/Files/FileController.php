@@ -67,7 +67,7 @@ class FileController extends Controller
             for ($i = 0; $i < count($files); $i++) {
                 $image = \App\Domain\Files\Models\File::query()->where('title','=',$files[$i])->first();
                 $image->delete();
-                File::delete('files/' . $files[$i]);
+                File::delete('storage/files/files/' . $files[$i]);
             }
 
             return response()

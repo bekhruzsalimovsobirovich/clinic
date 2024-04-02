@@ -8,6 +8,7 @@ use App\Domain\Patients\Models\Patient;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class UpdatePatientAction
 {
@@ -32,15 +33,24 @@ class UpdatePatientAction
             $patient->phone = $dto->getPhone();
             $patient->description = $dto->getDescription();
 
-            if ($dto->getAvatar()) {
-                File::delete(public_path('images/patients/'.$dto->getPatient()->avatar));
-                $file = $dto->getAvatar();
-                $extension = $file->getClientOriginalExtension();
-                $filename = time() . '.' . $extension;
-                $file->move('images/patients/', $filename);
-                $patient->avatar = $filename;
-                $patient->avatar_path = url('images/patients/' . $filename);
+            if ($dto->getAvatar() !== null) {
+                File::delete('storage/files/patients/images/' . $dto->getPatient()->avatar);
+                $image = $dto->getAvatar();
+                $filename = Str::random(4) . '_' . time() . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('public/files/patients/images', $filename);
+                $patient->image = $filename;
+                $patient->image_path = url('storage/files/patients/images/' . $filename);
             }
+
+//            if ($dto->getAvatar()) {
+//                File::delete(public_path('images/patients/'.$dto->getPatient()->avatar));
+//                $file = $dto->getAvatar();
+//                $extension = $file->getClientOriginalExtension();
+//                $filename = time() . '.' . $extension;
+//                $file->move('images/patients/', $filename);
+//                $patient->avatar = $filename;
+//                $patient->avatar_path = url('images/patients/' . $filename);
+//            }
 
             $patient->update();
         } catch (Exception $exception) {
