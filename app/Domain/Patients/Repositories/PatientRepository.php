@@ -27,6 +27,7 @@ class PatientRepository
     public function getPaginate($filter): LengthAwarePaginator
     {
         return Patient::query()
+            ->with('admissions')
             ->Filter($filter)
             ->orderBy('id','desc')
             ->paginate();
