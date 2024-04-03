@@ -63,24 +63,6 @@ class UserPatientController extends Controller
             ]);
     }
 
-    public function paginateNavbat()
-    {
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->user_patients->paginateNavbat()
-            ]);
-    }
-
-    public function paginateQaytaNavbat()
-    {
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->user_patients->paginateQaytaNavbat()
-            ]);
-    }
-
     /**
      * @param $user_id
      * @return JsonResponse

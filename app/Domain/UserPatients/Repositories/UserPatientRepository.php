@@ -60,26 +60,4 @@ class UserPatientRepository
             ->orderByDesc('id')
             ->paginate();
     }
-
-//    public function paginateNavbat()
-//    {
-//        return UserPatient::query()
-//            ->with(['user','patient','admissionNavbat'])
-//            ->whereHas('admissionNavbat', function ($query){
-//                $query->where('status',1);
-//            })
-//            ->orderByDesc('id')
-//            ->paginate();
-//    }
-//
-//    public function paginateQaytaNavbat()
-//    {
-//        return UserPatient::query()
-//            ->with(['user','patient','admissionQaytaNavbat'])
-//            ->whereHas('admissionQaytaNavbat', function ($query){
-//                $query->where('status',2);
-//            })
-//            ->orderByDesc('id')
-//            ->paginate();
-//    }
 }
