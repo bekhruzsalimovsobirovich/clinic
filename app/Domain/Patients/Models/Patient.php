@@ -69,7 +69,7 @@ class Patient extends Model
 {
     use HasFactory, Filterable;
 
-    protected $with = ['agent', 'epidemiologics','payments'];
+    protected $with = ['agent', 'epidemiologics','payments','admissions'];
 
     protected $casts = [
         'province_city' => 'json'
