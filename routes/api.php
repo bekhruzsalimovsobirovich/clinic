@@ -92,8 +92,8 @@ Route::get('readmission/disponser/all',[ReadmissionController::class,'getAllDisp
 Route::post('files/store',[FileController::class,'store']);
 Route::post('files/destroy',[FileController::class,'destroy']);
 Route::apiResource('admissions',AdmissionController::class);
-Route::get('admission/navbat/paginate',[UserPatientController::class,'paginateNavbat']);
-Route::get('admission/qayta/navbat/paginate',[UserPatientController::class,'paginateQaytaNavbat']);
+Route::get('admission/navbat/paginate',[AdmissionController::class,'paginateNavbat']);
+Route::get('admission/qayta/navbat/paginate',[AdmissionController::class,'paginateQaytaNavbat']);
 Route::post('/patient/end/qabul',[PatientController::class,'endQabul']);
 Route::get('/patient/end/paginate   ',[PatientController::class,'paginateEndPatient']);
 
