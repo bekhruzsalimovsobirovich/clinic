@@ -41,4 +41,17 @@ class PatientRepository
             ->orderBy('id','desc')
             ->get();
     }
+
+//    qabuli yakunlanganlar ro'yxati
+
+    /**
+     * @return Collection|array
+     */
+    public function paginateEndPatient(): Collection|array
+    {
+        return Patient::query()
+            ->where('status','=',1)
+            ->orderBy('id','desc')
+            ->get();
+    }
 }

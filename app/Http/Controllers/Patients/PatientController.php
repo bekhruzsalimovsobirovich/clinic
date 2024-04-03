@@ -213,47 +213,26 @@ class PatientController extends Controller
             ]);
     }
 
-//    //update ckeditor,mkb,files patient
-//
-//    /**
-//     * @param Request $request
-//     * @return JsonResponse
-//     */
-//    public function summary(Request $request)
-//    {
-//        $patient = Patient::find($request->patient_id);
-//        $patient->body = $request->body ?? $patient->body;
-//        $patient->files = $request->file ?? $patient->files;
-//        $patient->mkb = $request->mkb ?? $patient->mkb;
-//        $patient->update();
-//
-//        return response()
-//            ->json([
-//                'status' => true,
-//                'message' => 'Summary updated successfully!',
-//                'data' => $patient
-//            ]);
-//    }
+//qabulni yakunlash
+    public function endQabul(Request $request)
+    {
+        $patient = Patient::query()->find($request->patient_id);
+        $patient->status = $request->status;
+        $patient->update();
 
-//    /**
-//     * @return JsonResponse
-//     * qabulni yakunlash
-//     */
-//    public function updateStatusPatient(Request $request)
-//    {
-//        $request->validate([
-//            'patient_id' => 'required',
-//            'status' => 'required|integer'
-//        ]);
-//
-//        $patient = Patient::find($request->patient_id);
-//        $patient->status = $request->status;
-//        $patient->update();
-//
-//        return response()
-//            ->json([
-//                'status' => true,
-//                'message' => 'Qabul yakunlandi!'
-//            ]);
-//    }
+        return response()
+            ->json([
+                'status' => true,
+                'message' => 'Ushbu ' . $patient->full_name . ' bemor uchun qabul yakunlandi.'
+            ]);
+    }
+
+    public function paginateEndPatient()
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->patients->paginateEndPatient()
+            ]);
+    }
 }
