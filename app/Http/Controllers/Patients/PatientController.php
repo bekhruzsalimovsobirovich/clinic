@@ -53,6 +53,24 @@ class PatientController extends Controller
             ]);
     }
 
+    public function paginateNavbat()
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->patients->paginateNavbat()
+            ]);
+    }
+
+    public function paginateQaytaNavbat()
+    {
+        return response()
+            ->json([
+                'status' => true,
+                'data' => $this->patients->paginateQaytaNavbat()
+            ]);
+    }
+
     /**
      * Display a listing of the resource.
      */

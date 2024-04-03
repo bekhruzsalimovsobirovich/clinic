@@ -16,23 +16,4 @@ class AdmissionRepository
             ->orderByDesc('id')
             ->paginate();
     }
-
-
-//    navbat
-    public function navbat()
-    {
-        return Admission::query()
-            ->where('status',1)
-            ->orderByDesc('id')
-            ->paginate();
-    }
-
-    //  qayta  navbat
-    public function qaytaNavbat()
-    {
-        return Admission::query()
-            ->where('status',2)
-            ->orderByDesc('id')
-            ->paginate();
-    }
 }

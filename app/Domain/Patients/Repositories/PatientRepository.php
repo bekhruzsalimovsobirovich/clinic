@@ -42,6 +42,29 @@ class PatientRepository
             ->get();
     }
 
+    public function paginateNavbat()
+    {
+        return Patient::query()
+            ->with('admissionNavbat')
+            ->whereHas('admissionNavbat', function ($query){
+                $query->where('status',1);
+            })
+            ->orderByDesc('id')
+            ->paginate();
+    }
+
+    public function paginateQaytaNavbat()
+    {
+        return Patient::query()
+            ->with('admissionQaytaNavbat')
+            ->whereHas('admissionQaytaNavbat', function ($query){
+                $query->where('status',2);
+            })
+            ->orderByDesc('id')
+            ->paginate();
+    }
+
+
 //    qabuli yakunlanganlar ro'yxati
 
     /**

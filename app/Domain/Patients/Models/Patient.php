@@ -69,7 +69,7 @@ class Patient extends Model
 {
     use HasFactory, Filterable;
 
-    protected $with = ['agent', 'epidemiologics','payments','admissions'];
+    protected $with = ['agent', 'epidemiologics','payments'];
 
     protected $casts = [
         'province_city' => 'json'
@@ -106,7 +106,7 @@ class Patient extends Model
      */
     public function payments(): HasMany
     {
-        return $this->hasMany(Payment::class)->without(['patient']);
+        return $this->hasMany(Payment::class)->without(['patient'])->without('user_patients');
     }
 
     /**
@@ -114,15 +114,20 @@ class Patient extends Model
      */
     public function admissions(): HasMany
     {
-        return $this->hasMany(Admission::class);
+        return $this->hasMany(Admission::class,'patient_id','id');
     }
 
+//  navbat
+    public function admissionNavbat(): HasMany
+    {
+        return $this->hasMany(Admission::class,'patient_id','id')
+            ->where('status','=',1);
+    }
 
-//    /**
-//     * @return MorphMany
-//     */
-//    public function files(): MorphMany
-//    {
-//        return $this->morphMany(File::class, 'fileable');
-//    }
+    // qayta navbat
+    public function admissionQaytaNavbat(): HasMany
+    {
+        return $this->hasMany(Admission::class,'patient_id','id')
+            ->where('status','=',2);
+    }
 }

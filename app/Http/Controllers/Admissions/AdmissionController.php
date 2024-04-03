@@ -25,24 +25,6 @@ class AdmissionController extends Controller
         $this->admissions = $admissionRepository;
     }
 
-    public function paginateNavbat()
-    {
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->admissions->navbat()
-            ]);
-    }
-
-    public function paginateQaytaNavbat()
-    {
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->admissions->qaytaNavbat()
-            ]);
-    }
-
     /**
      * Display a listing of the resource.
      */
