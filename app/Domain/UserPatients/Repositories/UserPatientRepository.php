@@ -65,6 +65,9 @@ class UserPatientRepository
     {
         return UserPatient::query()
             ->with(['user','patient','admissionNavbat'])
+            ->whereHas('admissionNavbat', function ($query){
+                $query->where('status',1);
+            })
             ->orderByDesc('id')
             ->paginate();
     }
@@ -73,6 +76,9 @@ class UserPatientRepository
     {
         return UserPatient::query()
             ->with(['user','patient','admissionQaytaNavbat'])
+            ->whereHas('admissionQaytaNavbat', function ($query){
+                $query->where('status',2);
+            })
             ->orderByDesc('id')
             ->paginate();
     }
