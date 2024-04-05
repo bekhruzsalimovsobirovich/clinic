@@ -13,7 +13,6 @@ use App\Http\Controllers\Readmissions\ReadmissionController;
 use App\Http\Controllers\Roles\RoleController;
 use App\Http\Controllers\Services\ServicesController;
 use App\Http\Controllers\Templates\TemplateController;
-use App\Http\Controllers\UserPatients\UserPatientController;
 use App\Http\Controllers\Users\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -79,10 +78,6 @@ Route::post('payment/{user_id}',[PaymentController::class,'getUserIDForPayment']
 Route::get('payment/debtors',[PaymentController::class,'debtors']);
 Route::apiResource('templates',TemplateController::class);
 Route::get('template/user/{user_id}',[TemplateController::class,'showUserTemplate']);
-Route::apiResource('user_patients',UserPatientController::class);
-Route::get('user_patient/all',[UserPatientController::class,'getAll']);
-Route::get('user_patient/{user_id}/patients/navbat',[UserPatientController::class,'getUserIDForPatientNavbat']);
-Route::get('user_patient/{user_id}/patients/qayta/navbat',[UserPatientController::class,'getUserIDForPatientQaytaNavbat']);
 Route::get('/mkb',[MKBController::class,'index']);
 Route::post('readmission/store',[ReadmissionController::class,'store']);
 Route::get('readmission/qaytaNavbat/paginate',[ReadmissionController::class,'indexQaytaNavbat']);
@@ -95,6 +90,7 @@ Route::apiResource('admissions',AdmissionController::class);
 Route::get('admission/navbat/paginate',[PatientController::class,'paginateNavbat']);
 Route::get('admission/qayta/navbat/paginate',[PatientController::class,'paginateQaytaNavbat']);
 Route::post('/patient/end/qabul',[PatientController::class,'endQabul']);
+Route::post('/user/patient',[AdmissionController::class,'userPatient']);
 Route::get('/patient/end/paginate   ',[PatientController::class,'paginateEndPatient']);
 
 //Route::put('patient/summary',[PatientController::class,'summary']);

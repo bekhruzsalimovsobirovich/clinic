@@ -26,7 +26,7 @@ class PaymentRepository
     public function getUserIDForPayment($user_id): LengthAwarePaginator
     {
         return Payment::query()
-            ->whereHas('user_patients',function ($query) use ($user_id) {
+            ->whereHas('admission',function ($query) use ($user_id) {
                 $query->where('user_id',$user_id);
             })
             ->orderByDesc('id')

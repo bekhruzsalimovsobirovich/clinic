@@ -46,8 +46,8 @@ class PatientRepository
     public function paginateNavbat()
     {
         return Patient::query()
-            ->with('admissionNavbat')
-            ->whereHas('admissionNavbat', function ($query){
+            ->with('admissions')
+            ->whereHas('admissions', function ($query){
                 $query->where('status',1);
             })
             ->orderByDesc('id')
@@ -57,8 +57,8 @@ class PatientRepository
     public function paginateQaytaNavbat()
     {
         return Patient::query()
-            ->with('admissionQaytaNavbat')
-            ->whereHas('admissionQaytaNavbat', function ($query){
+            ->with('admissions')
+            ->whereHas('admissions', function ($query){
                 $query->where('status',2);
             })
             ->orderByDesc('id')

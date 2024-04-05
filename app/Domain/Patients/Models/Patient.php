@@ -116,18 +116,4 @@ class Patient extends Model
     {
         return $this->hasMany(Admission::class,'patient_id','id');
     }
-
-//  navbat
-    public function admissionNavbat(): HasMany
-    {
-        return $this->hasMany(Admission::class,'patient_id','id')
-            ->where('status','=',1);
-    }
-
-    // qayta navbat
-    public function admissionQaytaNavbat(): HasMany
-    {
-        return $this->hasMany(Admission::class,'patient_id','id')
-            ->where('status','=',2);
-    }
 }

@@ -7,22 +7,22 @@ class StoreAdmissionDTO
     /**
      * @var int
      */
-    private int $patient_id;
-
-    /**
-     * @var string
-     */
-    private string $title;
-
-    /**
-     * @var array
-     */
-    private array $admissions;
+    private int $user_id;
 
     /**
      * @var int
      */
-    private int $status;
+    private int $patient_id;
+
+    /**
+     * @var array|null
+     */
+    private ?array $admissions = null;
+
+    /**
+     * @var int|null
+     */
+    private ?int $status = 0;
 
     /**
      * @param array $data
@@ -31,28 +31,28 @@ class StoreAdmissionDTO
     public static function fromArray(array $data): StoreAdmissionDTO
     {
         $dto = new self();
+        $dto->setUserId($data['user_id']);
         $dto->setPatientId($data['patient_id']);
-        $dto->setTitle($data['title']);
-        $dto->setAdmissions($data['admissions']);
-        $dto->setStatus($data['status']);
+        $dto->setAdmissions($data['admissions'] ?? null);
+        $dto->setStatus($data['status'] ?? 1);
 
         return $dto;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getTitle(): string
+    public function getUserId(): int
     {
-        return $this->title;
+        return $this->user_id;
     }
 
     /**
-     * @param string $title
+     * @param int $user_id
      */
-    public function setTitle(string $title): void
+    public function setUserId(int $user_id): void
     {
-        $this->title = $title;
+        $this->user_id = $user_id;
     }
 
     /**
@@ -72,33 +72,33 @@ class StoreAdmissionDTO
     }
 
     /**
-     * @return array
+     * @return array|null
      */
-    public function getAdmissions(): array
+    public function getAdmissions(): ?array
     {
         return $this->admissions;
     }
 
     /**
-     * @param array $admissions
+     * @param array|null $admissions
      */
-    public function setAdmissions(array $admissions): void
+    public function setAdmissions(?array $admissions): void
     {
         $this->admissions = $admissions;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getStatus(): int
+    public function getStatus(): ?int
     {
         return $this->status;
     }
 
     /**
-     * @param int $status
+     * @param int|null $status
      */
-    public function setStatus(int $status): void
+    public function setStatus(?int $status): void
     {
         $this->status = $status;
     }

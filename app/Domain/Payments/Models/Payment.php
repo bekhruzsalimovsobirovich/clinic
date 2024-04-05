@@ -59,17 +59,12 @@ class Payment extends Model
 
     protected $perPage = 30;
 
-    protected $with = ['patient','user_patients'];
+    protected $with = ['patient'];
 
     protected $casts = [
         'pays' => 'json',
         'services' => 'json',
     ];
-
-    public function user_patients()
-    {
-        return $this->belongsTo(UserPatient::class,'patient_id','patient_id');
-    }
 
     /**
      * @return BelongsTo

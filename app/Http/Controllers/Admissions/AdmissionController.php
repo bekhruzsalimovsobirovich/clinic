@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admissions;
 
 use App\Domain\Admissions\Actions\StoreAdmissionAction;
 use App\Domain\Admissions\DTO\StoreAdmissionDTO;
+use App\Domain\Admissions\Models\Admission;
 use App\Domain\Admissions\Repositories\AdmissionRepository;
 use App\Http\Controllers\Controller;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -38,15 +40,35 @@ class AdmissionController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function userPatient(Request $request)
+    {
+        $admission = new Admission();
+        $admission->user_id = $request->user_id;
+        $admission->patient_id = $request->patient_id;
+        $admission->status = $request->status;
+        $admission->save();
+
+        return response()
+            ->json([
+                'status' => 'true',
+                'message' => 'Bemor vrachga biriktirildi',
+                'data' => $admission
+            ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request, StoreAdmissionAction $action)
     {
         try {
             $request->validate([
+                'user_id' => 'required',
                 'patient_id' => 'required',
-                'status' => 'required',
-                'admissions' => 'required',
+                'admissions' => 'nullable',
             ]);
         } catch (ValidationException $validate) {
             return response()->json([

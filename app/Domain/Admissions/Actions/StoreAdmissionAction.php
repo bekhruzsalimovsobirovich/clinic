@@ -6,7 +6,6 @@ use App\Domain\Admissions\DTO\StoreAdmissionDTO;
 use App\Domain\Admissions\Models\Admission;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
 class StoreAdmissionAction
 {
@@ -19,14 +18,23 @@ class StoreAdmissionAction
     {
         DB::beginTransaction();
         try {
-            $admission = new Admission();
-            $admission->patient_id = $dto->getPatientId();
-            $admission->title = $dto->getTitle();
-            $admission->uuid = Str::uuid();
-            $admission->admissions = $dto->getAdmissions();
-            $admission->status = $dto->getStatus();
-            $admission->save();
-        }catch (Exception $exception){
+            $admission = Admission::query()
+                ->where('user_id', $dto->getUserId())
+                ->where('patient_id', $dto->getPatientId())
+                ->first();
+            if ($admission != null) {
+                $admission->admissions = array_merge($admission->admissions, $dto->getAdmissions());
+                $admission->status = $dto->getStatus() ?? $admission->status;
+                $admission->update();
+            } else {
+                $admission = new Admission();
+                $admission->user_id = $dto->getUserId();
+                $admission->patient_id = $dto->getPatientId();
+                $admission->admissions = $dto->getAdmissions();
+                $admission->status = $dto->getStatus();
+                $admission->save();
+            }
+        } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
         }
