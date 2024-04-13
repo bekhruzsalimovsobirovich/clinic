@@ -54,6 +54,8 @@ class StorePaymentAction
                     $current_payment->pays = $dto->getPays();
                     $current_payment_history->pays = $dto->getPays();
                 }
+                $current_payment->status = $dto->getStatus();
+                $current_payment_history->status = $dto->getStatus();
                 $current_payment->update();
                 $current_payment_history->update();
                 DB::commit();
