@@ -25,7 +25,11 @@ class StoreAdmissionAction
 
             $admission = Admission::query()->find($dto->getAdmissionId());
             if ($admission != null) {
-                $admission->admissions = array_merge($admission->admissions, $dto->getAdmissions());
+                if ($admission->admissions != null) {
+                    $admission->admissions = array_merge($admission->admissions, $dto->getAdmissions());
+                } else {
+                    $admission->admissions = $dto->getAdmissions();
+                }
                 $admission->status = $dto->getStatus() ?? $admission->status;
                 $admission->update();
             } else {

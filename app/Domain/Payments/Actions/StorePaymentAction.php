@@ -21,15 +21,18 @@ class StorePaymentAction
         try {
             $payment = new Payment();
             $payment_history = new PaymentHistory();
+
             $current_payment = Payment::query()
-                ->where('admission_id', $dto->getAdmissionId())
+                ->where('patient_id',$dto->getPatientId())
+                ->where('admission_id',$dto->getAdmissionId())
                 ->first();
 
             $current_payment_history = PaymentHistory::query()
-                ->where('admission_id', $dto->getAdmissionId())
+                ->where('patient_id',$dto->getPatientId())
+                ->where('admission_id',$dto->getAdmissionId())
                 ->first();
 
-            if ($current_payment == null) {
+            if($current_payment == null){
                 $payment->patient_id = $dto->getPatientId();
                 $payment->admission_id = $dto->getAdmissionId();
                 $payment->status = $dto->getStatus();
@@ -41,15 +44,23 @@ class StorePaymentAction
                 $payment_history->status = $dto->getStatus();
                 $payment_history->pays = $dto->getPays();
                 $payment_history->save();
-            } else {
-                $current_payment->pays = array_merge($current_payment->pays, $dto->getPays());
-                $current_payment_history->pays = array_merge($current_payment_history->pays, $dto->getPays());
+                DB::commit();
+                return $payment;
+            }else{
+                if ($current_payment->pays != null) {
+                    $current_payment->pays = array_merge($current_payment->pays, $dto->getPays());
+                    $current_payment_history->pays = array_merge($current_payment_history->pays, $dto->getPays());
+                } else {
+                    $current_payment->pays = $dto->getPays();
+                    $current_payment_history->pays = $dto->getPays();
+                }
                 $current_payment->update();
                 $current_payment_history->update();
+                DB::commit();
+                return $current_payment;
             }
 
-            DB::commit();
-            return $payment;
+
         } catch (Exception $exception) {
             DB::rollBack();
             throw $exception;
