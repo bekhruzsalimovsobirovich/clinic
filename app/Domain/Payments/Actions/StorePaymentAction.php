@@ -19,21 +19,35 @@ class StorePaymentAction
     {
         DB::beginTransaction();
         try {
-
             $payment = new Payment();
             $payment_history = new PaymentHistory();
+            $current_payment = Payment::query()
+                ->where('admission_id', $dto->getAdmissionId())
+                ->first();
 
-            $payment->patient_id = $dto->getPatientId();
-            $payment->admission_id = $dto->getAdmissionId();
-            $payment->status = $dto->getStatus();
-            $payment->pays = $dto->getPays();
-            $payment->save();
+            $current_payment_history = PaymentHistory::query()
+                ->where('admission_id', $dto->getAdmissionId())
+                ->first();
 
-            $payment_history->patient_id = $dto->getPatientId();
-            $payment_history->admission_id = $dto->getAdmissionId();
-            $payment_history->status = $dto->getStatus();
-            $payment_history->pays = $dto->getPays();
-            $payment_history->save();
+            if ($current_payment == null) {
+                $payment->patient_id = $dto->getPatientId();
+                $payment->admission_id = $dto->getAdmissionId();
+                $payment->status = $dto->getStatus();
+                $payment->pays = $dto->getPays();
+                $payment->save();
+
+                $payment_history->patient_id = $dto->getPatientId();
+                $payment_history->admission_id = $dto->getAdmissionId();
+                $payment_history->status = $dto->getStatus();
+                $payment_history->pays = $dto->getPays();
+                $payment_history->save();
+            } else {
+                $current_payment->pays = array_merge($current_payment->pays, $dto->getPays());
+                $current_payment_history->pays = array_merge($current_payment_history->pays, $dto->getPays());
+                $current_payment->update();
+                $current_payment_history->update();
+            }
+
             DB::commit();
             return $payment;
         } catch (Exception $exception) {
