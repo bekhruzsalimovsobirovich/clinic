@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Patients;
 
+use App\Domain\Admissions\Models\Admission;
 use App\Domain\Patients\Actions\StorePatientAction;
 use App\Domain\Patients\Actions\UpdatePatientAction;
 use App\Domain\Patients\DTO\StorePatientDTO;
@@ -16,6 +17,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class PatientController extends Controller
@@ -234,9 +236,17 @@ class PatientController extends Controller
 //qabulni yakunlash
     public function endQabul(Request $request)
     {
+        $admission = Admission::query()
+            ->where('id','=',$request->admission_id)
+            ->where('patient_id','=',$request->patient_id)
+            ->first();
+
         $patient = Patient::query()->find($request->patient_id);
-        $patient->status = $request->status;
+
+        $admission->uuid = Str::uuid();
+        $patient->status = 1;
         $patient->update();
+        $admission->update();
 
         return response()
             ->json([
