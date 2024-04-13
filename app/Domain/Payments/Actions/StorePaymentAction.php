@@ -23,16 +23,16 @@ class StorePaymentAction
             $payment_history = new PaymentHistory();
 
             $current_payment = Payment::query()
-                ->where('patient_id',$dto->getPatientId())
-                ->where('admission_id',$dto->getAdmissionId())
+                ->where('patient_id', $dto->getPatientId())
+                ->where('admission_id', $dto->getAdmissionId())
                 ->first();
 
             $current_payment_history = PaymentHistory::query()
-                ->where('patient_id',$dto->getPatientId())
-                ->where('admission_id',$dto->getAdmissionId())
+                ->where('patient_id', $dto->getPatientId())
+                ->where('admission_id', $dto->getAdmissionId())
                 ->first();
 
-            if($current_payment == null){
+            if ($current_payment == null) {
                 $payment->patient_id = $dto->getPatientId();
                 $payment->admission_id = $dto->getAdmissionId();
                 $payment->status = $dto->getStatus();
@@ -46,7 +46,7 @@ class StorePaymentAction
                 $payment_history->save();
                 DB::commit();
                 return $payment;
-            }else{
+            } else {
                 if ($current_payment->pays != null) {
                     $current_payment->pays = array_merge($current_payment->pays, $dto->getPays());
                     $current_payment_history->pays = array_merge($current_payment_history->pays, $dto->getPays());
