@@ -12,11 +12,6 @@ class StoreAdmissionDTO
     /**
      * @var int
      */
-    private int $admission_id;
-
-    /**
-     * @var int
-     */
     private int $patient_id;
 
     /**
@@ -106,21 +101,5 @@ class StoreAdmissionDTO
     public function setStatus(?int $status): void
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return int
-     */
-    public function getAdmissionId(): int
-    {
-        return $this->admission_id;
-    }
-
-    /**
-     * @param int $admission_id
-     */
-    public function setAdmissionId(int $admission_id): void
-    {
-        $this->admission_id = $admission_id;
     }
 }

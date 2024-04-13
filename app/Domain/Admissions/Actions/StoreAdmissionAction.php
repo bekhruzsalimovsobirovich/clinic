@@ -18,12 +18,11 @@ class StoreAdmissionAction
     {
         DB::beginTransaction();
         try {
-//            $admission = Admission::query()
-//                ->where('user_id', $dto->getUserId())
-//                ->where('patient_id', $dto->getPatientId())
-//                ->first();
+            $admission = Admission::query()
+                ->where('user_id', $dto->getUserId())
+                ->where('patient_id', $dto->getPatientId())
+                ->first();
 
-            $admission = Admission::query()->find($dto->getAdmissionId());
             if ($admission != null) {
                 if ($admission->admissions != null) {
                     $admission->admissions = array_merge($admission->admissions, $dto->getAdmissions());
