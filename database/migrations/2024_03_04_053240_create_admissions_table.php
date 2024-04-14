@@ -21,9 +21,10 @@ return new class extends Migration
             $table->foreignIdFor(Patient::class)
                 ->index()
                 ->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unsignedBigInteger('request_id')->index()->comment('bemor qaytib kelganda aloxida row buladi, ushanga admissionlarni qoshish uchun kerak');
             $table->json('admissions')->comment('priyom')->nullable();
             $table->uuid()->comment('uuid')->nullable();
-            $table->integer('status')->comment('1 - navbat, 2 - qayta navbat')->default(1);
+            $table->json('status')->comment('1 - navbat, 2 - qayta navbat, [1,2]');
             $table->timestamps();
         });
     }

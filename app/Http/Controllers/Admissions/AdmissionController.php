@@ -48,6 +48,7 @@ class AdmissionController extends Controller
         $admission = new Admission();
         $admission->user_id = $request->user_id;
         $admission->patient_id = $request->patient_id;
+        $admission->request_id = $request->request_id;
         $admission->status = $request->status;
         $admission->save();
 
@@ -117,5 +118,19 @@ class AdmissionController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getLatestRequestId()
+    {
+        return response()
+            ->json(
+                Admission::query()
+                ->select('request_id')
+                ->orderByDesc('request_id')
+                ->first()
+            );
     }
 }

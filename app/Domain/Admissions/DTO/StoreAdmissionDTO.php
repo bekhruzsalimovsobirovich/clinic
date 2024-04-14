@@ -15,14 +15,19 @@ class StoreAdmissionDTO
     private int $patient_id;
 
     /**
+     * @var int
+     */
+    private int $request_id;
+
+    /**
      * @var array|null
      */
     private ?array $admissions = null;
 
     /**
-     * @var int|null
+     * @var array|null
      */
-    private ?int $status = 0;
+    private ?array $status = [0];
 
     /**
      * @param array $data
@@ -33,10 +38,27 @@ class StoreAdmissionDTO
         $dto = new self();
         $dto->setUserId($data['user_id']);
         $dto->setPatientId($data['patient_id']);
+        $dto->setRequestId($data['request_id']);
         $dto->setAdmissions($data['admissions'] ?? null);
-        $dto->setStatus($data['status'] ?? 1);
+        $dto->setStatus($data['status'] ?? [1]);
 
         return $dto;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRequestId(): int
+    {
+        return $this->request_id;
+    }
+
+    /**
+     * @param int $request_id
+     */
+    public function setRequestId(int $request_id): void
+    {
+        $this->request_id = $request_id;
     }
 
     /**
@@ -88,17 +110,17 @@ class StoreAdmissionDTO
     }
 
     /**
-     * @return int|null
+     * @return array|null
      */
-    public function getStatus(): ?int
+    public function getStatus(): ?array
     {
         return $this->status;
     }
 
     /**
-     * @param int|null $status
+     * @param array|null $status
      */
-    public function setStatus(?int $status): void
+    public function setStatus(?array $status): void
     {
         $this->status = $status;
     }

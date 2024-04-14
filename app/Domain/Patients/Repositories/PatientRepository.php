@@ -43,38 +43,25 @@ class PatientRepository
             ->get();
     }
 
-    public function paginateNavbat()
+    public function paginateTypeAdmissionStatus($filter)
     {
         return Patient::query()
+            ->Filter($filter)
             ->with('admissions')
-            ->whereHas('admissions', function ($query){
-                $query->where('status',1);
-            })
             ->orderByDesc('id')
             ->paginate();
     }
-
-    public function paginateQaytaNavbat()
-    {
-        return Patient::query()
-            ->with('admissions')
-            ->whereHas('admissions', function ($query){
-                $query->where('status',2);
-            })
-            ->orderByDesc('id')
-            ->paginate();
-    }
-
 
 //    qabuli yakunlanganlar ro'yxati
 
     /**
+     * @param $filter
      * @return Collection|array
      */
-    public function paginateEndPatient(): Collection|array
+    public function paginateEndPatient($filter): Collection|array
     {
         return Patient::query()
-            ->where('status','=',1)
+            ->Filter($filter)
             ->orderBy('id','desc')
             ->get();
     }

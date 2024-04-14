@@ -9,8 +9,10 @@ use App\Domain\Patients\DTO\StorePatientDTO;
 use App\Domain\Patients\DTO\UpdatePatientDTO;
 use App\Domain\Patients\Models\Patient;
 use App\Domain\Patients\Repositories\PatientRepository;
+use App\Filters\PatientAdmissionStatusFilter;
 use App\Filters\PatientFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Filters\PatientAdmissionStatusFilterRequest;
 use App\Http\Requests\Filters\PatientFilterRequest;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -55,21 +57,14 @@ class PatientController extends Controller
             ]);
     }
 
-    public function paginateNavbat()
+    public function paginateTypeAdmissionStatus(PatientAdmissionStatusFilterRequest $request)
     {
-        return response()
-            ->json([
-                'status' => true,
-                'data' => $this->patients->paginateNavbat()
-            ]);
-    }
+        $filters = app()->make(PatientAdmissionStatusFilter::class, ['queryParams' => array_filter($request->validated())]);
 
-    public function paginateQaytaNavbat()
-    {
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->patients->paginateQaytaNavbat()
+                'data' => $this->patients->paginateTypeAdmissionStatus($filters)
             ]);
     }
 
@@ -260,7 +255,7 @@ class PatientController extends Controller
         return response()
             ->json([
                 'status' => true,
-                'data' => $this->patients->paginateEndPatient()
+                'data' => $this->patients->paginateEndPatient($this->filters)
             ]);
     }
 }

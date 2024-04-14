@@ -21,6 +21,7 @@ class StoreAdmissionAction
             $admission = Admission::query()
                 ->where('user_id', $dto->getUserId())
                 ->where('patient_id', $dto->getPatientId())
+                ->where('request_id', $dto->getRequestId())
                 ->first();
 
             if ($admission != null) {
@@ -35,6 +36,7 @@ class StoreAdmissionAction
                 $admission = new Admission();
                 $admission->user_id = $dto->getUserId();
                 $admission->patient_id = $dto->getPatientId();
+                $admission->request_id = $dto->getRequestId();
                 $admission->admissions = $dto->getAdmissions();
                 $admission->status = $dto->getStatus();
                 $admission->save();

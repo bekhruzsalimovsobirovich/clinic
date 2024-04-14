@@ -4,7 +4,7 @@ namespace App\Http\Requests\Filters;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PatientFilterRequest extends FormRequest
+class PatientAdmissionStatusFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,7 @@ class PatientFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'full_name' => 'nullable|string',
-            'phone' => 'nullable',
-            'code' => 'nullable|string',
-            'status' => 'nullable',
+            'status_admission' => 'nullable'
         ];
     }
 }

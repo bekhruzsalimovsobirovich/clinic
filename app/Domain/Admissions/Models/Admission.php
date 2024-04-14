@@ -17,7 +17,8 @@ class Admission extends Model
     protected $perPage = 30;
 
     protected $casts = [
-        'admissions' => 'json'
+        'admissions' => 'json',
+        'status' => 'array',
     ];
 
     /**
